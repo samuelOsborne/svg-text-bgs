@@ -33,16 +33,16 @@ let SPACING_MAX = 500;
 let ROTATION = '-45'
 let FONT_SIZE = '50px';
 let FONT_FAMILY = 'JetBrains Mono, Arial, Helvetica, sans-serif';
-let FONT_COLOR = '#ff0085';
+let FONT_COLOR = '#94a3b8';
 let STROKE_WIDTH = '5';
-let FILL_COLOR = '#FF0085FF';
+let FILL_COLOR = '#94a3b8';
 let OFFSET = 3;
 let TEXT_VALUE = "SVGENIUS ";
 
 let TEXT_ANCHOR = 'middle';
 let TEXT_LENGTH = '0';
-let NB_LINES = 10;
-let NB_WORDS = 20;
+let NB_LINES = 0;
+let NB_WORDS = 0;
 
 let canvas = document.createElement('canvas')
 let context = canvas.getContext('2d');
@@ -69,11 +69,12 @@ const BrowserText = (function () {
 
 function draw() {
     let x =  -WIDTH / 4;
-    NB_WORDS = Math.round(Math.sqrt( (WIDTH * WIDTH)  + (HEIGHT * HEIGHT)) / BrowserText.getWidth(TEXT_VALUE, 50));
+    if (NB_WORDS === 0) {
+        NB_WORDS = Math.round(Math.sqrt( (WIDTH * WIDTH)  + (HEIGHT * HEIGHT)) / BrowserText.getWidth(TEXT_VALUE, 50));
+        document.getElementById('wordNbInput').value = NB_WORDS;
+    }
 
-    let test = WIDTH - SPACING;
-    console.log("[ Nb words calculated : " + NB_WORDS + " ]");
-    console.log("[ WIDTH - SPACING : " + test + " ]");
+    //NB_LINES =
 
     for (let i = -WIDTH / 4; i <= WIDTH + (WIDTH / 4); i += SPACING) {
         let txt = "";
@@ -207,6 +208,19 @@ function changeFontSize() {
     }
 }
 
+function changeFontColor() {
+    for (let i = 0; i < words.length; i++) {
+        words[i].word.setAttributeNS(null, 'stroke', FONT_COLOR);
+        words[i].word.setAttributeNS(null, 'fill', FONT_COLOR);
+    }
+}
+
+function changeWordSpacing() {
+    for (let i = 0; i < words.length; i++) {
+        words[i].word.setAttributeNS(null, 'word-spacing', SPACING);
+    }
+}
+
 function changeRotation() {
     for (let i = 0; i < words.length; i++) {
         let rotTransform = "rotate(" + ROTATION + ',' + words[i].x.toString() + ',' + words[i].y.toString() + ')';
@@ -215,14 +229,44 @@ function changeRotation() {
     }
 }
 
+const processTextChange = debounce((e) => textHandler(e));
 const processWidthChange = debounce((e) => widthHandler(e));
+const processWordNbInput = debounce((e) => wordNbHandler(e));
 const processHeightChange = debounce((e) => heightHandler(e));
 
-let heightSlider = document.getElementById('heightSlider');
+let textInput = document.getElementById('textInput');
+textInput.addEventListener('input', () => { processTextChange() });
+
+let heightSlider = document.getElementById('heightInput');
 heightSlider.addEventListener('input', () => { processHeightChange() });
 
-let widthSlider = document.getElementById('widthSlider');
+let widthSlider = document.getElementById('widthInput');
 widthSlider.addEventListener('input', () => { processWidthChange() });
+
+let wordNbInput = document.getElementById('wordNbInput');
+wordNbInput.addEventListener('input', () => { processWordNbInput() });
+
+let backgroundColorInput = document.getElementById('backgroundColorInput');
+backgroundColorInput.addEventListener('input', () => {
+    board.style.backgroundColor = backgroundColorInput.value;
+});
+
+let fontColorInput = document.getElementById('fontColorInput');
+fontColorInput.addEventListener('input', () => {
+    FONT_COLOR = fontColorInput.value;
+    FILL_COLOR = fontColorInput.value;
+    changeFontColor();
+});
+
+function textHandler() {
+    TEXT_VALUE = textInput.value;
+    if (!textInput.value.length)
+        return;
+    if (TEXT_VALUE.charAt(TEXT_VALUE.length - 1) !== ' ')
+        TEXT_VALUE += " ";
+    clear();
+    draw();
+}
 
 function widthHandler() {
     WIDTH = parseInt(widthSlider.value);
@@ -242,6 +286,20 @@ function heightHandler() {
     board.setAttribute('h', HEIGHT);
     let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
     board.setAttribute('viewBox', vb);
+}
+
+function wordNbHandler() {
+    NB_WORDS = parseInt(wordNbInput.value);
+
+    clear();
+    draw();
+    // WIDTH = parseInt(widthSlider.value);
+    // clear();
+    // draw();
+    // console.log("width : " + WIDTH);
+    // board.setAttribute('w', WIDTH);
+    // let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
+    // board.setAttribute('viewBox', vb);
 }
 
 let spacingSlider = document.getElementById('spacingSlider');
@@ -269,13 +327,11 @@ let rotationInput = document.getElementById('rotationInput');
 rotationSlider.addEventListener('input', () => {
     ROTATION = rotationSlider.value.toString();
     rotationInput.value = ROTATION;
-    console.log(ROTATION);
     changeRotation();
 })
 rotationInput.addEventListener('input', () => {
     ROTATION = rotationInput.value.toString();
     rotationSlider.value = ROTATION;
-    console.log(ROTATION);
     changeRotation();
 })
 
@@ -299,19 +355,29 @@ strokeWidthSlider.addEventListener('input', () => {
     STROKE_WIDTH = strokeWidthSlider.value.toString();
     strokeWidthInput.value = strokeWidthSlider.value;
     changeStrokeWidth();
-})
+});
 strokeWidthInput.addEventListener('input', () => {
     STROKE_WIDTH = strokeWidthInput.value.toString();
     strokeWidthSlider.value = strokeWidthInput.value;
     changeStrokeWidth();
-})
+});
 
 let snapshotBtn = document.getElementById('snapshotBtn');
 snapshotBtn.addEventListener('click', () => {
     snapshot(true);
-})
+});
 
-
-let offsetSlider = document.getElementById('offsetSlider');
+let wordSpacingSlider = document.getElementById('wordSpacingSlider');
+let wordSpacingInput = document.getElementById('wordSpacingInput');
+wordSpacingSlider.addEventListener('input', () => {
+    SPACING = wordSpacingSlider.value.toString();
+    wordSpacingInput.value = wordSpacingSlider.value;
+    changeWordSpacing();
+});
+wordSpacingInput.addEventListener('input', () => {
+    SPACING = wordSpacingInput.value.toString();
+    wordSpacingSlider.value = wordSpacingInput.value;
+    changeWordSpacing();
+});
 
 draw();
