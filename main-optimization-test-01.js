@@ -11,8 +11,8 @@ let container = document.getElementById("container");
 /**
  * HD
  */
-let WIDTH = 1920;
-let HEIGHT = 1080;
+let WIDTH = 390;
+let HEIGHT = 275;
 
 /**
  * 8K FUHD
@@ -79,7 +79,6 @@ function draw() {
     for (let i = -WIDTH / 4; i <= WIDTH + (WIDTH / 4); i += SPACING) {
         let txt = "";
         let txtLength = 0;
-        console.log(i);
 
         /**
          * Offset the words from the top
@@ -237,11 +236,11 @@ const processHeightChange = debounce((e) => heightHandler(e));
 let textInput = document.getElementById('textInput');
 textInput.addEventListener('input', () => { processTextChange() });
 
-let heightSlider = document.getElementById('heightInput');
-heightSlider.addEventListener('input', () => { processHeightChange() });
+let heightInput = document.getElementById('heightInput');
+heightInput.addEventListener('input', () => { processHeightChange() });
 
-let widthSlider = document.getElementById('widthInput');
-widthSlider.addEventListener('input', () => { processWidthChange() });
+let widthInput = document.getElementById('widthInput');
+widthInput.addEventListener('input', () => { processWidthChange() });
 
 let wordNbInput = document.getElementById('wordNbInput');
 wordNbInput.addEventListener('input', () => { processWordNbInput() });
@@ -269,20 +268,18 @@ function textHandler() {
 }
 
 function widthHandler() {
-    WIDTH = parseInt(widthSlider.value);
+    WIDTH = parseInt(widthInput.value);
     clear();
     draw();
-    console.log("width : " + WIDTH);
     board.setAttribute('w', WIDTH);
     let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
     board.setAttribute('viewBox', vb);
 }
 
 function heightHandler() {
-    HEIGHT = parseInt(heightSlider.value);
+    HEIGHT = parseInt(heightInput.value);
     clear();
     draw();
-    console.log("height : " + HEIGHT);
     board.setAttribute('h', HEIGHT);
     let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
     board.setAttribute('viewBox', vb);
@@ -293,26 +290,17 @@ function wordNbHandler() {
 
     clear();
     draw();
-    // WIDTH = parseInt(widthSlider.value);
-    // clear();
-    // draw();
-    // console.log("width : " + WIDTH);
-    // board.setAttribute('w', WIDTH);
-    // let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
-    // board.setAttribute('viewBox', vb);
 }
 
 let spacingSlider = document.getElementById('spacingSlider');
 let spacingInput = document.getElementById('spacingInput');
 spacingSlider.addEventListener('input', () => {
-    console.log(SPACING);
     SPACING = parseInt(spacingSlider.value);
     spacingInput.value = SPACING;
     clear();
     draw();
 });
 spacingInput.addEventListener('input', () => {
-    console.log(SPACING);
     if (spacingInput.value >= SPACING_MIN && spacingInput.value <= SPACING_MAX) {
         SPACING = parseInt(spacingInput.value);
         spacingSlider.value = SPACING;
@@ -379,5 +367,29 @@ wordSpacingInput.addEventListener('input', () => {
     wordSpacingSlider.value = wordSpacingInput.value;
     changeWordSpacing();
 });
+
+
+/**
+ * Settings panel
+ */
+let settingsCloseBtn = document.getElementById('settingsCloseBtn');
+let settingsBtn = document.getElementById('settingsBtn');
+let settingsPanel = document.getElementById('settings');
+
+settingsCloseBtn.addEventListener("click", () => {
+    if (settingsPanel.style.display !== 'none')
+        settingsPanel.style.display = "none";
+    else
+        settingsPanel.style.display = "block";
+});
+
+settingsBtn.addEventListener("click", () => {
+    if (settingsPanel.style.display !== 'none')
+        settingsPanel.style.display = "none";
+    else
+        settingsPanel.style.display = "block";
+});
+
+
 
 draw();

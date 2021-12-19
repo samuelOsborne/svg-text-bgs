@@ -1,5 +1,5 @@
 <!doctype html>
-<html data-theme="bumblebee">
+<html data-theme="cupcake">
 
 <head>
   <meta charset="utf-8">
@@ -19,10 +19,10 @@
 
 <body>
 
-<div class="h-screen">
-  <div class="navbar mb-2 shadow-lg bg-primary text-neutral-content">
+<div id="app">
+  <div class="navbar mb-2 shadow-lg bg-primary text-neutral-content z-50">
     <div class="px-2 mx-2 navbar-start">
-      <span class="text-lg font-bold">
+      <span class="text-lg font-bold ">
         Text backgrounds
       </span>
     </div>
@@ -40,179 +40,258 @@
     </div>
   </div>
 
-  <div class="pr-14 pl-14 pt-14">
-    <div id="container" preserveAspectRatio="xMidYMin" class="mx-8 rounded-xl w-4/6 h-1/2 drop-shadow-2xl float-left content-center items-center m-auto flex">
-      <svg viewBox="0 0 1920 1080" id="text-base" xmlns="http://www.w3.org/2000/svg"
-           style="background-color:#ffffff">
-        <style type="text/css">
-          @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
-        </style>
+    <div class="actions">
+      <div class="content-block bg-primary " id="settings">
+        <div class="close-btn" id="settingsCloseBtn">
+        </div>
 
-        <!-- Guidelines -->
-        <line x1="960" y1="0" x2="960" y2="1080" stroke="#000000" stroke-width="1"/>
-        <line x1="0" y1="540" x2="1920" y2="540" stroke="#000000" stroke-width="1"/>
-      </svg>
-    </div>
-
-    <div class="card shadow-lg">
-      <div class="card-body">
-        <h2 class="card-title">Control panel 🕹</h2>
-
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Text
+        <div id="inputs">
+          <div class="mb-2">
+            <label for="textInput" class="input-label">Text</label>
+            <input id="textInput" type="text" value="SVGenius" class="input input-xs input-secondary">
           </div>
-          <div class="float-right m-auto w-full my-2">
-            <input id="textInput" type="text" value="SVGenius" class="w-1/2 input input-xs input-primary">
+
+          <div class="mb-2">
+            <label for="widthInput" class="input-label">Width</label>
+            <input id="widthInput" type="number" min="1" max="7680" value="390" class="input input-xs input-secondary">
+          </div>
+
+          <div class="mb-2">
+            <label for="heightInput" class="input-label">Height</label>
+            <input id="heightInput" type="number" min="1" max="4329" value="275" class="input input-xs input-secondary">
+          </div>
+
+          <div class="mb-2">
+            <label for="wordNbInput" class="input-label">Words</label>
+            <input id="wordNbInput" type="number" min="1" value="" class="input input-xs input-secondary">
           </div>
         </div>
 
-
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Width
+        <div id="color-inputs">
+          <div class="mb-2 block float-left">
+            <label for="backgroundColorInput" class="input-label">Background Color</label>
+            <div>
+              <input type="color" id="backgroundColorInput" value="#00ffc0">
+            </div>
           </div>
-          <div class="float-right m-auto w-full my-2">
-            <input id="widthInput" type="number" min="1" max="7680" value="1920" class="w-1/2 input input-xs input-primary">
+
+          <div class="mb-2 block">
+            <label for="fontColorInput">Font Color</label>
+            <div>
+              <input type="color" id="fontColorInput" value="#94a3b8">
+            </div>
           </div>
         </div>
 
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Height
+        <div id="slider-inputs">
+          <div class="mb-2 block">
+            <label for="spacingSlider" class="slider-input-label">Spacing</label>
+            <div class="flex">
+              <input id="spacingSlider" type="range" min="100" max="500" value="200" step="1" class="range range-sm range-secondary mr-2">
+              <input id="spacingInput" type="number" min="100" max="500" value="200" step="1" class="input input-xs input-secondary slider-input">
+            </div>
           </div>
-          <div class="float-right m-auto w-full my-2">
-            <input id="heightInput" type="nunber" min="1" max="4329" value="1080" class="w-1/2 input input-xs input-primary">
-          </div>
-        </div>
 
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Words
+          <div class="mb-2 block">
+            <label for="rotationSlider" class="slider-input-label">Rotation</label>
+            <div class="flex">
+              <input id="rotationSlider" type="range" min="0" max="360" value="-45" step="1" class="range range-sm range-secondary mr-2">
+              <input id="rotationInput" type="number" min="0" max="360" value="-45" step="1" class="input input-xs input-secondary slider-input">
+            </div>
           </div>
-          <div class="float-right m-auto w-full my-2">
-            <input id="wordNbInput" type="number" min="1" value="" class="w-1/2 input input-xs input-primary">
-          </div>
-        </div>
 
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Background color
-          </div>
-          <div class="float-right m-auto w-full my-2">
-            <input type="color" id="backgroundColorInput" value="#ffffff">
-          </div>
-        </div>
+          <div class="mb-2 block">
+            <label for="fontSizeSlider" class="slider-input-label">Font Size</label>
 
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Font color
+            <div class="flex">
+              <input id="fontSizeSlider" type="range" min="1" max="1000" value="50" step="1" class="range range-sm range-secondary mr-2">
+              <input id="fontSizeInput" type="number" min="1" max="1000" value="50" step="1" class="input input-xs input-secondary slider-input">
+            </div>
           </div>
-          <div class="float-right m-auto w-full my-2">
-            <input type="color" id="fontColorInput" value="#ffffff">
-          </div>
-        </div>
 
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Spacing
-          </div>
-          <div class="float-right m-auto my-2">
-            <input id="spacingSlider" type="range" min="100" max="500" value="200" step="1" class="range range-primary">
-          </div>
-          <div class="m-auto my-2">
-            <input id="spacingInput" type="number" min="100" max="500" value="200" step="1" class="input input-xs input-primary">
-          </div>
-        </div>
+          <div class="mb-2 block">
+            <label for="strokeWidthSlider" class="slider-input-label">Stroke Width</label>
 
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Rotation
+            <div class="flex">
+              <input id="strokeWidthSlider" type="range" min="0" max="50" value="5" class="range range-sm range-secondary mr-2">
+              <input id="strokeWidthInput" type="number" min="0" max="50" value="5" class="input input-xs input-secondary slider-input">
+            </div>
           </div>
-          <div class="float-right m-auto my-2">
-            <input id="rotationSlider" type="range" min="0" max="360" value="-45" step="1" class="range range-primary">
-          </div>
-          <div class="m-auto my-2">
-            <input id="rotationInput" type="number" min="0" max="360" value="-45" step="1" class="input input-xs input-primary">
-          </div>
-        </div>
 
+          <div class="mb-2 block">
+            <label for="wordSpacingSlider" class="slider-input-label">Word Spacing</label>
 
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Font size
+            <div class="flex">
+              <input id="wordSpacingSlider" type="range" min="0" max="500" value="5" class="range range-sm range-secondary mr-2">
+              <input id="wordSpacingInput" type="number" min="0" max="500" value="5" class="input input-xs input-secondary slider-input">
+            </div>
           </div>
-          <div class="float-right m-auto my-2">
-            <input id="fontSizeSlider" type="range" min="1" max="1000" value="50" step="1" class="range range-primary">
-          </div>
-          <div class="m-auto my-2">
-            <input id="fontSizeInput" type="number" min="1" max="1000" value="50" step="1" class="input input-xs input-primary">
-          </div>
-        </div>
 
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Stroke width
-          </div>
-          <div class="m-auto my-2">
-            <input id="strokeWidthSlider" type="range" min="0" max="50" value="5" class="range range-primary">
-          </div>
-          <div class="float-right m-auto my-2">
-            <input id="strokeWidthInput" type="number" min="0" max="50" value="5" class="input input-xs input-primary">
-          </div>
-        </div>
-
-        <div class="inline-flex p-4 pl-0 w-full">
-          <div class="my-2 w-1/4 text-right">
-            Word spacing
-          </div>
-          <div class="m-auto my-2">
-            <input id="wordSpacingSlider" type="range" min="0" max="500" value="5" class="range range-primary">
-          </div>
-          <div class="float-right m-auto my-2">
-            <input id="wordSpacingInput" type="number" min="0" max="500" value="5" class="input input-xs input-primary">
-          </div>
-        </div>
-
-        <div class="inline-flex p-4 w-full">
-          <div class="w-full my-2">
+          <div class="mb-2">
             <button class="btn" id="snapshotBtn">Snapshot</button>
           </div>
         </div>
+
       </div>
-    </div>
+
+      <div class="flex" id="settingsBtn">
+        <button id="show-settings" class="btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="white" fill="white">
+            <path d="M9 3C7.13616 3 5.57006 4.27477 5.12602 6L2 6V8H5.12602C5.57006 9.72523 7.13616 11 9 11C10.8638 11 12.4299 9.72523 12.874 8H22V6L12.874 6C12.4299 4.27477 10.8638 3 9 3ZM7 7C7 8.10457 7.89543 9 9 9C10.1046 9 11 8.10457 11 7C11 5.89543 10.1046 5 9 5C7.89543 5 7 5.89543 7 7Z M11.126 18H2V16H11.126C11.5701 14.2748 13.1362 13 15 13C16.8638 13 18.4299 14.2748 18.874 16H22V18H18.874C18.4299 19.7252 16.8638 21 15 21C13.1362 21 11.5701 19.7252 11.126 18ZM15 19C13.8954 19 13 18.1046 13 17C13 15.8954 13.8954 15 15 15C16.1046 15 17 15.8954 17 17C17 18.1046 16.1046 19 15 19Z"></path>
+          </svg>
+        </button>
+      </div>
+
   </div>
 
-  <footer class="items-center p-4 footer bg-primary text-neutral-content">
-    <div class="items-center grid-flow-col">
-      <svg width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current">
-        <path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path>
-      </svg>
-      <p>Copyright © 2021 - All right reserved</p>
-    </div>
-    <div class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-      <a>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
-          <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-        </svg>
-      </a>
-      <a>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
-          <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-        </svg>
-      </a>
-      <a>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
-          <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-        </svg>
-      </a>
-    </div>
-  </footer>
+    <div id="scale-wrap" class="items-center m-auto z-0" style="transform: scale(1);">
+      <div id="container" style="position:relative; width: 390px; height: 275px">
+        <svg viewBox="0 0 390 275" id="text-base" xmlns="http://www.w3.org/2000/svg"
+             style="background-color:#00ffc0; width: 100%; height: 100%" preserveAspectRatio="xMidYMin">
+          <style type="text/css">
+            @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+          </style>
 
+          <!-- Guidelines -->
+          <line x1="960" y1="0" x2="960" y2="1080" stroke="#000000" stroke-width="1"/>
+          <line x1="0" y1="540" x2="1920" y2="540" stroke="#000000" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+
+<!--    <div class="card shadow-lg" style="z-index: 1000">-->
+<!--      <div class="card-body">-->
+<!--        <h2 class="card-title">Control panel 🕹</h2>-->
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Text-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto w-full my-2">-->
+<!--            <input id="textInput" type="text" value="SVGenius" class="w-1/2 input input-xs input-secondary">-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Width-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto w-full my-2">-->
+<!--            <label for="widthInput">Width</label>-->
+<!--            <input id="widthInput" type="number" min="1" max="7680" value="1920" class="w-1/2 input input-xs input-secondary">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Height-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto w-full my-2">-->
+<!--            <input id="heightInput" type="nunber" min="1" max="4329" value="1080" class="w-1/2 input input-xs input-secondary">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Words-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto w-full my-2">-->
+<!--            <input id="wordNbInput" type="number" min="1" value="" class="w-1/2 input input-xs input-secondary">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Background color-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto w-full my-2">-->
+<!--            <input type="color" id="backgroundColorInput" value="#ffffff">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Font color-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto w-full my-2">-->
+<!--            <input type="color" id="fontColorInput" value="#ffffff">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Spacing-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto my-2">-->
+<!--            <input id="spacingSlider" type="range" min="100" max="500" value="200" step="1" class="range range-secondary">-->
+<!--          </div>-->
+<!--          <div class="m-auto my-2">-->
+<!--            <input id="spacingInput" type="number" min="100" max="500" value="200" step="1" class="input input-xs input-secondary">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Rotation-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto my-2">-->
+<!--            <input id="rotationSlider" type="range" min="0" max="360" value="-45" step="1" class="range range-secondary">-->
+<!--          </div>-->
+<!--          <div class="m-auto my-2">-->
+<!--            <input id="rotationInput" type="number" min="0" max="360" value="-45" step="1" class="input input-xs input-secondary">-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Font size-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto my-2">-->
+<!--            <input id="fontSizeSlider" type="range" min="1" max="1000" value="50" step="1" class="range range-secondary">-->
+<!--          </div>-->
+<!--          <div class="m-auto my-2">-->
+<!--            <input id="fontSizeInput" type="number" min="1" max="1000" value="50" step="1" class="input input-xs input-secondary">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Stroke width-->
+<!--          </div>-->
+<!--          <div class="m-auto my-2">-->
+<!--            <input id="strokeWidthSlider" type="range" min="0" max="50" value="5" class="range range-secondary">-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto my-2">-->
+<!--            <input id="strokeWidthInput" type="number" min="0" max="50" value="5" class="input input-xs input-secondary">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="inline-flex p-4 pl-0 w-full">-->
+<!--          <div class="my-2 w-1/4 text-right">-->
+<!--            Word spacing-->
+<!--          </div>-->
+<!--          <div class="m-auto my-2">-->
+<!--            <input id="wordSpacingSlider" type="range" min="0" max="500" value="5" class="range range-secondary">-->
+<!--          </div>-->
+<!--          <div class="float-right m-auto my-2">-->
+<!--            <input id="wordSpacingInput" type="number" min="0" max="500" value="5" class="input input-xs input-secondary">-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="inline-flex p-4 w-full">-->
+<!--          <div class="w-full my-2">-->
+<!--            <button class="btn" id="snapshotBtn">Snapshot</button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 </div>
 
 <!--<script type="module" src="/main.js"></script>-->
 <script type="module" src="/main-optimization-test-01.js"></script>
+<script type="module" src="/scale-svg.js"></script>
 
 </body>
 
