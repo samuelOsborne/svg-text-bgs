@@ -11,8 +11,8 @@ let container = document.getElementById("container");
 /**
  * HD
  */
-let WIDTH = 390;
-let HEIGHT = 275;
+let WIDTH = 1920;
+let HEIGHT = 1080;
 
 /**
  * 8K FUHD
@@ -33,11 +33,12 @@ let SPACING_MAX = 500;
 let ROTATION = '-45'
 let FONT_SIZE = '50px';
 let FONT_FAMILY = 'JetBrains Mono, Arial, Helvetica, sans-serif';
-let FONT_COLOR = '#94a3b8';
+let FONT_URL = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap';
+let FONT_COLOR = '#ffffff';
 let STROKE_WIDTH = '5';
-let FILL_COLOR = '#94a3b8';
 let OFFSET = 3;
 let TEXT_VALUE = "SVGENIUS ";
+let BACKGROUND_COLOR = '#00ffc0';
 
 let TEXT_ANCHOR = 'middle';
 let TEXT_LENGTH = '0';
@@ -48,6 +49,12 @@ let canvas = document.createElement('canvas')
 let context = canvas.getContext('2d');
 
 let words = [];
+
+/**
+ * Flags
+ */
+let RESET_NB_WORDS = true;
+
 
 const BrowserText = (function () {
     /**
@@ -69,13 +76,11 @@ const BrowserText = (function () {
 
 function draw() {
     let x =  -WIDTH / 4;
-    if (NB_WORDS === 0) {
+    if (RESET_NB_WORDS) {
         NB_WORDS = Math.round(Math.sqrt( (WIDTH * WIDTH)  + (HEIGHT * HEIGHT)) / BrowserText.getWidth(TEXT_VALUE, 50));
         document.getElementById('wordNbInput').value = NB_WORDS;
+        RESET_NB_WORDS = false;
     }
-
-    //NB_LINES =
-
     for (let i = -WIDTH / 4; i <= WIDTH + (WIDTH / 4); i += SPACING) {
         let txt = "";
         let txtLength = 0;
@@ -101,11 +106,10 @@ function draw() {
         word.setAttributeNS(null, 'text-anchor', TEXT_ANCHOR);
         word.setAttributeNS(null, 'font-size', FONT_SIZE);
         word.setAttributeNS(null, 'transform', rotTransform.toString());
-        word.setAttributeNS(null, 'textLength', TEXT_LENGTH);
         word.setAttributeNS(null, 'font-family', FONT_FAMILY);
         word.setAttributeNS(null, 'stroke', FONT_COLOR);
         word.setAttributeNS(null, 'stroke-width', STROKE_WIDTH);
-        word.setAttributeNS(null, 'fill', FILL_COLOR);
+        word.setAttributeNS(null, 'fill', FONT_COLOR);
 
 
         let wordObj = {
@@ -121,10 +125,7 @@ function draw() {
         board.appendChild(word);
 
         x += SPACING;
-        //helloWorld.setAttributeNS(null, 'transform', 'rotate(-45, 960, 540)');
-        //helloWorld.setAttributeNS(null, 'transform', 'rotate(ROTATION, posX, posY)');
     }
-    console.log("Words length : " + words.length);
 }
 
 function clear() {
@@ -133,7 +134,7 @@ function clear() {
 
     let elem = `<svg viewBox="0 0 1920 1080" id="text-base" xmlns="http://www.w3.org/2000/svg" style="background-color:#ffffff;">
     <style type="text/css">
-      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+      @import url('${FONT_URL}');
     </style>
 
     <style>
@@ -148,8 +149,9 @@ function clear() {
 
     container.innerHTML = elem;
     board = document.getElementById("text-base");
-    // board.setAttribute('width', WIDTH);
-    // board.setAttribute('height', HEIGHT);
+    board.style.backgroundColor = BACKGROUND_COLOR;
+    board.setAttribute('width', WIDTH);
+    board.setAttribute('height', HEIGHT);
     let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
     board.setAttribute('viewBox', vb);
 }
@@ -167,7 +169,7 @@ function triggerDownload(dataUri, filename) {
     document.body.removeChild(element);
 };
 
-const debounce = (func, timeout = 500) => {
+const debounce = (func, timeout = 1000) => {
     let timer;
     return (...args) => {
         clearTimeout(timer);
@@ -248,12 +250,12 @@ wordNbInput.addEventListener('input', () => { processWordNbInput() });
 let backgroundColorInput = document.getElementById('backgroundColorInput');
 backgroundColorInput.addEventListener('input', () => {
     board.style.backgroundColor = backgroundColorInput.value;
+    BACKGROUND_COLOR = backgroundColorInput.value;
 });
 
 let fontColorInput = document.getElementById('fontColorInput');
 fontColorInput.addEventListener('input', () => {
     FONT_COLOR = fontColorInput.value;
-    FILL_COLOR = fontColorInput.value;
     changeFontColor();
 });
 
@@ -269,6 +271,7 @@ function textHandler() {
 
 function widthHandler() {
     WIDTH = parseInt(widthInput.value);
+    RESET_NB_WORDS = true;
     clear();
     draw();
     board.setAttribute('w', WIDTH);
@@ -278,6 +281,7 @@ function widthHandler() {
 
 function heightHandler() {
     HEIGHT = parseInt(heightInput.value);
+    RESET_NB_WORDS = true;
     clear();
     draw();
     board.setAttribute('h', HEIGHT);
@@ -313,13 +317,15 @@ let rotationSlider = document.getElementById('rotationSlider');
 let rotationInput = document.getElementById('rotationInput');
 
 rotationSlider.addEventListener('input', () => {
-    ROTATION = rotationSlider.value.toString();
-    rotationInput.value = ROTATION;
+    ROTATION = parseInt(rotationSlider.value.toString());
+    rotationInput.value = parseInt(ROTATION);
     changeRotation();
 })
 rotationInput.addEventListener('input', () => {
-    ROTATION = rotationInput.value.toString();
-    rotationSlider.value = ROTATION;
+    ROTATION = parseInt(rotationInput.value.toString());
+    if (isNaN(ROTATION))
+        ROTATION = -45;
+    rotationSlider.value = parseInt(ROTATION);
     changeRotation();
 })
 
@@ -348,6 +354,20 @@ strokeWidthInput.addEventListener('input', () => {
     STROKE_WIDTH = strokeWidthInput.value.toString();
     strokeWidthSlider.value = strokeWidthInput.value;
     changeStrokeWidth();
+});
+
+let fontFamilyInput = document.getElementById('fontFamilyInput');
+fontFamilyInput.addEventListener('input', () => {
+    FONT_FAMILY = fontFamilyInput.value.toString();
+    clear();
+    draw();
+});
+
+let fontFamilyURL = document.getElementById('fontURLInput');
+fontFamilyURL.addEventListener('input', () => {
+    FONT_URL = fontFamilyURL.value.toString();
+    clear();
+    draw();
 });
 
 let snapshotBtn = document.getElementById('snapshotBtn');

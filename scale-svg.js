@@ -1,5 +1,5 @@
 window.addEventListener( 'load', function() {
-    let zoom = 1;
+    let zoom = 0.25;
     let box = document.getElementById('scale-wrap');
 
     document.addEventListener("wheel", function (e) {

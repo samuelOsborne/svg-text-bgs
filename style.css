@@ -25,6 +25,10 @@ body {
   width: 100%;
 }
 
+#inputs {
+  padding-top: 35px;
+}
+
 .actions {
   z-index: 9999;
   position: absolute;
@@ -87,6 +91,15 @@ body {
 .input-label {
   width: 150px;
   display: inline-block;
+  text-align: left;
+}
+
+.input {
+  width: 150px;
+  display: inline-block;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .slider-input-label {
@@ -124,11 +137,13 @@ body {
   height: 20px;
   margin-top: 5px;
 }
+
 #fontColorInput::-webkit-color-swatch {
   border: none;
   border-radius: 10px;
   padding: 0;
 }
+
 #fontColorInput::-webkit-color-swatch-wrapper {
   border: none;
   border-radius: 10px;

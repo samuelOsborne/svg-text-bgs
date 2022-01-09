@@ -1,9 +1,9 @@
 <!doctype html>
-<html data-theme="cupcake">
+<html data-theme="bumblebee">
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>SVG Text Background</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,52 +20,40 @@
 <body>
 
 <div id="app">
-  <div class="navbar mb-2 shadow-lg bg-primary text-neutral-content z-50">
-    <div class="px-2 mx-2 navbar-start">
-      <span class="text-lg font-bold ">
-        Text backgrounds
-      </span>
-    </div>
-    <div class="navbar-end">
-      <button class="btn btn-square btn-ghost">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-        </svg>
-      </button>
-      <button class="btn btn-square btn-ghost">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-        </svg>
-      </button>
-    </div>
-  </div>
-
     <div class="actions">
       <div class="content-block bg-primary " id="settings">
-        <div class="close-btn" id="settingsCloseBtn">
-        </div>
-
-        <div id="inputs">
-          <div class="mb-2">
+        <div class="close-btn" id="settingsCloseBtn"></div>
+        <ul id="inputs">
+          <li class="mb-2">
             <label for="textInput" class="input-label">Text</label>
             <input id="textInput" type="text" value="SVGenius" class="input input-xs input-secondary">
-          </div>
+          </li>
 
-          <div class="mb-2">
+          <li class="mb-2">
             <label for="widthInput" class="input-label">Width</label>
-            <input id="widthInput" type="number" min="1" max="7680" value="390" class="input input-xs input-secondary">
-          </div>
+            <input id="widthInput" type="number" min="1" max="7680" value="1920" class="input input-xs input-secondary">
+          </li>
 
-          <div class="mb-2">
+          <li class="mb-2">
             <label for="heightInput" class="input-label">Height</label>
-            <input id="heightInput" type="number" min="1" max="4329" value="275" class="input input-xs input-secondary">
-          </div>
+            <input id="heightInput" type="number" min="1" max="4329" value="1080" class="input input-xs input-secondary">
+          </li>
 
-          <div class="mb-2">
+          <li class="mb-2">
+            <label for="fontURLInput" class="input-label">Font url</label>
+            <input id="fontURLInput" type="text" value="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" class="input input-xs input-secondary">
+          </li>
+
+          <li class="mb-2">
+            <label for="fontFamilyInput" class="input-label">Font Family</label>
+            <input id="fontFamilyInput" type="text" value="JetBrains Mono" class="input input-xs input-secondary">
+          </li>
+
+          <li class="mb-2">
             <label for="wordNbInput" class="input-label">Words</label>
             <input id="wordNbInput" type="number" min="1" value="" class="input input-xs input-secondary">
-          </div>
-        </div>
+          </li>
+        </ul>
 
         <div id="color-inputs">
           <div class="mb-2 block float-left">
@@ -78,7 +66,7 @@
           <div class="mb-2 block">
             <label for="fontColorInput">Font Color</label>
             <div>
-              <input type="color" id="fontColorInput" value="#94a3b8">
+              <input type="color" id="fontColorInput" value="#ffffff">
             </div>
           </div>
         </div>
@@ -95,8 +83,8 @@
           <div class="mb-2 block">
             <label for="rotationSlider" class="slider-input-label">Rotation</label>
             <div class="flex">
-              <input id="rotationSlider" type="range" min="0" max="360" value="-45" step="1" class="range range-sm range-secondary mr-2">
-              <input id="rotationInput" type="number" min="0" max="360" value="-45" step="1" class="input input-xs input-secondary slider-input">
+              <input id="rotationSlider" type="range" min="-360" max="360" value="-45" step="1" class="range range-sm range-secondary mr-2">
+              <input id="rotationInput" type="number" min="-360" max="360" value="-45" step="1" class="input input-xs input-secondary slider-input">
             </div>
           </div>
 
@@ -104,8 +92,8 @@
             <label for="fontSizeSlider" class="slider-input-label">Font Size</label>
 
             <div class="flex">
-              <input id="fontSizeSlider" type="range" min="1" max="1000" value="50" step="1" class="range range-sm range-secondary mr-2">
-              <input id="fontSizeInput" type="number" min="1" max="1000" value="50" step="1" class="input input-xs input-secondary slider-input">
+              <input id="fontSizeSlider" type="range" min="1" max="500" value="50" step="1" class="range range-sm range-secondary mr-2">
+              <input id="fontSizeInput" type="number" min="1" max="500" value="50" step="1" class="input input-xs input-secondary slider-input">
             </div>
           </div>
 
@@ -128,7 +116,7 @@
           </div>
 
           <div class="mb-2">
-            <button class="btn" id="snapshotBtn">Snapshot</button>
+            <button class="btn" id="snapshotBtn">Download</button>
           </div>
         </div>
 
@@ -144,9 +132,9 @@
 
   </div>
 
-    <div id="scale-wrap" class="items-center m-auto z-0" style="transform: scale(1);">
-      <div id="container" style="position:relative; width: 390px; height: 275px">
-        <svg viewBox="0 0 390 275" id="text-base" xmlns="http://www.w3.org/2000/svg"
+    <div id="scale-wrap" class="items-center m-auto z-0" style="transform: scale(0.25);">
+      <div id="container" style="position:relative; width: 1920px; height: 1080px">
+        <svg viewBox="0 0 1920 1080" id="text-base" xmlns="http://www.w3.org/2000/svg"
              style="background-color:#00ffc0; width: 100%; height: 100%" preserveAspectRatio="xMidYMin">
           <style type="text/css">
             @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
