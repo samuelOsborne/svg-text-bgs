@@ -39,6 +39,16 @@ body {
   max-width: 380px;
 }
 
+.socials {
+  z-index: 9999;
+  position: absolute;
+  bottom: 20px;
+  left: 100px;
+  display: flex;
+  flex-direction: column;
+  max-width: 380px;
+}
+
 .close-btn {
   cursor: pointer;
   width: 30px;

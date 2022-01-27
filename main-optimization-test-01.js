@@ -388,28 +388,4 @@ wordSpacingInput.addEventListener('input', () => {
     changeWordSpacing();
 });
 
-
-/**
- * Settings panel
- */
-let settingsCloseBtn = document.getElementById('settingsCloseBtn');
-let settingsBtn = document.getElementById('settingsBtn');
-let settingsPanel = document.getElementById('settings');
-
-settingsCloseBtn.addEventListener("click", () => {
-    if (settingsPanel.style.display !== 'none')
-        settingsPanel.style.display = "none";
-    else
-        settingsPanel.style.display = "block";
-});
-
-settingsBtn.addEventListener("click", () => {
-    if (settingsPanel.style.display !== 'none')
-        settingsPanel.style.display = "none";
-    else
-        settingsPanel.style.display = "block";
-});
-
-
-
 draw();
