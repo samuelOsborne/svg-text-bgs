@@ -21,7 +21,10 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
+
+  <!-- Plausible -->
   <script defer data-domain="textbgs.com" src="https://plausible.io/js/plausible.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   <!-- Place favicon.ico in the root directory -->
 </head>
 
@@ -124,7 +127,7 @@
           </div>
 
           <div class="mb-2">
-            <button class="btn" id="snapshotBtn">Download</button>
+            <button class="btn" id="snapshotBtn" onclick="plausible('BG-DOWNLOADED')">Download</button>
           </div>
         </div>
 
