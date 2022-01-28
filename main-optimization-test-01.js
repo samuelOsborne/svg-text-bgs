@@ -5,10 +5,6 @@ let board = document.getElementById("text-base");
 let container = document.getElementById("container");
 
 /**
- * INPUTS TO LATER BE MODIFIED BY USERS
- */
-
-/**
  * HD
  */
 let WIDTH = 1920;
@@ -39,6 +35,7 @@ let STROKE_WIDTH = '5';
 let OFFSET = 3;
 let TEXT_VALUE = "SVGENIUS ";
 let BACKGROUND_COLOR = '#00ffc0';
+let WORD_SPACING = 5;
 
 let TEXT_ANCHOR = 'middle';
 let TEXT_LENGTH = '0';
@@ -54,6 +51,82 @@ let words = [];
  * Flags
  */
 let RESET_NB_WORDS = true;
+
+/**
+ * Presets
+ */
+let PRESETS = [
+    {
+        word: 'HAMBURGER 🍔 ',
+        backgroundColor: '#FF0000',
+        fontColor: "#FFFFFF",
+        spacing: 200,
+        rotation: -45,
+        fontSize: 50,
+        strokeWidth: 5,
+        wordSpacing: 5
+    },
+    {
+        word: 'Delivermoo 🐄 ',
+        backgroundColor: '#00ccbc',
+        fontColor: "#FFFFFF",
+        spacing: 384,
+        rotation: 39,
+        fontSize: 52,
+        strokeWidth: 3,
+        wordSpacing: 0
+    },
+    {
+        word: 'Nine guys 🌯 ',
+        backgroundColor: '#FF0000',
+        fontColor: "#FFFFFF",
+        spacing: 384,
+        rotation: 39,
+        fontSize: 52,
+        strokeWidth: 3,
+        wordSpacing: 0
+    },
+    {
+        word: 'Howdy 🤠 ',
+        backgroundColor: '#BB00FF',
+        fontColor: "#FFFFFF",
+        spacing: 384,
+        rotation: 321,
+        fontSize: 52,
+        strokeWidth: 3,
+        wordSpacing: 0
+    },
+    {
+        word: 'WooHoo! ',
+        backgroundColor: '#FFFFFF',
+        fontColor: "#D400FF",
+        spacing: 181,
+        rotation: -50,
+        fontSize: 52,
+        strokeWidth: 3,
+        wordSpacing: 0
+    },
+    {
+        word: 'Take me to your leader! 👽 ',
+        backgroundColor: '#000000',
+        fontColor: "#CFCFCF",
+        spacing: 216,
+        rotation: -30,
+        fontSize: 36,
+        strokeWidth: 3,
+        wordSpacing: 0
+    },
+    {
+        word: 'Freddie! 🐈 ',
+        backgroundColor: '#FF33A0',
+        fontColor: "#FFFFFF",
+        spacing: 470,
+        rotation: -38,
+        fontSize: 36,
+        strokeWidth: 3,
+        wordSpacing: 0
+    },
+]
 
 
 const BrowserText = (function () {
@@ -81,6 +154,9 @@ function draw() {
         document.getElementById('wordNbInput').value = NB_WORDS;
         RESET_NB_WORDS = false;
     }
+
+    if (SPACING === 0)
+        SPACING = 100;
     for (let i = -WIDTH / 4; i <= WIDTH + (WIDTH / 4); i += SPACING) {
         let txt = "";
         let txtLength = 0;
@@ -110,6 +186,7 @@ function draw() {
         word.setAttributeNS(null, 'stroke', FONT_COLOR);
         word.setAttributeNS(null, 'stroke-width', STROKE_WIDTH);
         word.setAttributeNS(null, 'fill', FONT_COLOR);
+        word.setAttributeNS(null, 'word-spacing', WORD_SPACING);
 
 
         let wordObj = {
@@ -218,7 +295,7 @@ function changeFontColor() {
 
 function changeWordSpacing() {
     for (let i = 0; i < words.length; i++) {
-        words[i].word.setAttributeNS(null, 'word-spacing', SPACING);
+        words[i].word.setAttributeNS(null, 'word-spacing', WORD_SPACING);
     }
 }
 
@@ -230,30 +307,48 @@ function changeRotation() {
     }
 }
 
+/**
+ * Sliders and input fields
+ */
+
+let spacingSlider = document.getElementById('spacingSlider');
+let spacingInput = document.getElementById('spacingInput');
+let rotationSlider = document.getElementById('rotationSlider');
+let rotationInput = document.getElementById('rotationInput');
+let fontSizeSlider = document.getElementById('fontSizeSlider');
+let fontSizeInput = document.getElementById('fontSizeInput');
+let strokeWidthSlider = document.getElementById('strokeWidthSlider');
+let strokeWidthInput = document.getElementById('strokeWidthInput');
+let fontFamilyInput = document.getElementById('fontFamilyInput');
+let fontFamilyURL = document.getElementById('fontURLInput');
+let snapshotBtn = document.getElementById('snapshotBtn');
+let wordSpacingSlider = document.getElementById('wordSpacingSlider');
+let wordSpacingInput = document.getElementById('wordSpacingInput');
+let textInput = document.getElementById('textInput');
+let heightInput = document.getElementById('heightInput');
+let widthInput = document.getElementById('widthInput');
+let wordNbInput = document.getElementById('wordNbInput');
+let backgroundColorInput = document.getElementById('backgroundColorInput');
+let fontColorInput = document.getElementById('fontColorInput');
+
 const processTextChange = debounce((e) => textHandler(e));
 const processWidthChange = debounce((e) => widthHandler(e));
 const processWordNbInput = debounce((e) => wordNbHandler(e));
 const processHeightChange = debounce((e) => heightHandler(e));
 
-let textInput = document.getElementById('textInput');
 textInput.addEventListener('input', () => { processTextChange() });
 
-let heightInput = document.getElementById('heightInput');
 heightInput.addEventListener('input', () => { processHeightChange() });
 
-let widthInput = document.getElementById('widthInput');
 widthInput.addEventListener('input', () => { processWidthChange() });
 
-let wordNbInput = document.getElementById('wordNbInput');
 wordNbInput.addEventListener('input', () => { processWordNbInput() });
 
-let backgroundColorInput = document.getElementById('backgroundColorInput');
 backgroundColorInput.addEventListener('input', () => {
     board.style.backgroundColor = backgroundColorInput.value;
     BACKGROUND_COLOR = backgroundColorInput.value;
 });
 
-let fontColorInput = document.getElementById('fontColorInput');
 fontColorInput.addEventListener('input', () => {
     FONT_COLOR = fontColorInput.value;
     changeFontColor();
@@ -265,6 +360,7 @@ function textHandler() {
         return;
     if (TEXT_VALUE.charAt(TEXT_VALUE.length - 1) !== ' ')
         TEXT_VALUE += " ";
+    RESET_NB_WORDS = true;
     clear();
     draw();
 }
@@ -296,8 +392,6 @@ function wordNbHandler() {
     draw();
 }
 
-let spacingSlider = document.getElementById('spacingSlider');
-let spacingInput = document.getElementById('spacingInput');
 spacingSlider.addEventListener('input', () => {
     SPACING = parseInt(spacingSlider.value);
     spacingInput.value = SPACING;
@@ -313,9 +407,6 @@ spacingInput.addEventListener('input', () => {
     }
 });
 
-let rotationSlider = document.getElementById('rotationSlider');
-let rotationInput = document.getElementById('rotationInput');
-
 rotationSlider.addEventListener('input', () => {
     ROTATION = parseInt(rotationSlider.value.toString());
     rotationInput.value = parseInt(ROTATION);
@@ -329,9 +420,6 @@ rotationInput.addEventListener('input', () => {
     changeRotation();
 })
 
-let fontSizeSlider = document.getElementById('fontSizeSlider');
-let fontSizeInput = document.getElementById('fontSizeInput');
-
 fontSizeSlider.addEventListener('input', () => {
     fontSizeInput.value = fontSizeSlider.value;
     FONT_SIZE = fontSizeSlider.value.toString() + "px";
@@ -343,8 +431,6 @@ fontSizeInput.addEventListener('input', () => {
     changeFontSize();
 })
 
-let strokeWidthSlider = document.getElementById('strokeWidthSlider');
-let strokeWidthInput = document.getElementById('strokeWidthInput');
 strokeWidthSlider.addEventListener('input', () => {
     STROKE_WIDTH = strokeWidthSlider.value.toString();
     strokeWidthInput.value = strokeWidthSlider.value;
@@ -356,36 +442,59 @@ strokeWidthInput.addEventListener('input', () => {
     changeStrokeWidth();
 });
 
-let fontFamilyInput = document.getElementById('fontFamilyInput');
 fontFamilyInput.addEventListener('input', () => {
     FONT_FAMILY = fontFamilyInput.value.toString();
     clear();
     draw();
 });
 
-let fontFamilyURL = document.getElementById('fontURLInput');
 fontFamilyURL.addEventListener('input', () => {
     FONT_URL = fontFamilyURL.value.toString();
     clear();
     draw();
 });
 
-let snapshotBtn = document.getElementById('snapshotBtn');
 snapshotBtn.addEventListener('click', () => {
     snapshot(true);
 });
 
-let wordSpacingSlider = document.getElementById('wordSpacingSlider');
-let wordSpacingInput = document.getElementById('wordSpacingInput');
 wordSpacingSlider.addEventListener('input', () => {
-    SPACING = wordSpacingSlider.value.toString();
+    WORD_SPACING = wordSpacingSlider.value.toString();
     wordSpacingInput.value = wordSpacingSlider.value;
     changeWordSpacing();
 });
 wordSpacingInput.addEventListener('input', () => {
-    SPACING = wordSpacingInput.value.toString();
+    WORD_SPACING = wordSpacingInput.value.toString();
     wordSpacingSlider.value = wordSpacingInput.value;
     changeWordSpacing();
 });
 
+function generateRandomBackground() {
+    let index = Math.floor(Math.random() * PRESETS.length);
+    // let index = PRESETS.length - 1;
+    let preset = PRESETS[index];
+
+    TEXT_VALUE = preset.word;
+    BACKGROUND_COLOR = preset.backgroundColor;
+    FONT_COLOR = preset.fontColor;
+    SPACING = preset.spacing;
+    ROTATION = preset.rotation;
+    FONT_SIZE = preset.fontSize;
+    STROKE_WIDTH = preset.strokeWidth;
+    WORD_SPACING = preset.wordSpacing;
+
+    board.style.backgroundColor = BACKGROUND_COLOR;
+
+    //set slider values
+    textInput.value = TEXT_VALUE;
+    backgroundColorInput.value = BACKGROUND_COLOR;
+    fontColorInput.value = FONT_COLOR;
+    spacingInput.value = SPACING;
+    rotationInput.value = ROTATION;
+    fontSizeInput.value = FONT_SIZE;
+    strokeWidthInput.value = STROKE_WIDTH;
+    wordSpacingInput.value = WORD_SPACING;
+}
+
+generateRandomBackground();
 draw();
