@@ -1,5 +1,5 @@
-import './style.css'
-import {height} from "tailwindcss/lib/plugins";
+import '../style.css'
+import { RESET_NB_WORDS } from './globalState'
 
 let board = document.getElementById("text-base");
 let container = document.getElementById("container");
@@ -32,7 +32,6 @@ let FONT_FAMILY = 'JetBrains Mono, Arial, Helvetica, sans-serif';
 let FONT_URL = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap';
 let FONT_COLOR = '#ffffff';
 let STROKE_WIDTH = '5';
-let OFFSET = 3;
 let TEXT_VALUE = "SVGENIUS ";
 let BACKGROUND_COLOR = '#00ffc0';
 let WORD_SPACING = 5;
@@ -45,12 +44,12 @@ let NB_WORDS = 0;
 let canvas = document.createElement('canvas')
 let context = canvas.getContext('2d');
 
-let words = [];
+export let words = [];
 
 /**
  * Flags
  */
-let RESET_NB_WORDS = true;
+// export let RESET_NB_WORDS = true;
 
 /**
  * Presets
@@ -147,10 +146,10 @@ const BrowserText = (function () {
     };
 })();
 
-function draw() {
-    let x =  -WIDTH / 4;
+function drawDiagonalText() {
+    let x = -WIDTH / 4;
     if (RESET_NB_WORDS) {
-        NB_WORDS = Math.round(Math.sqrt( (WIDTH * WIDTH)  + (HEIGHT * HEIGHT)) / BrowserText.getWidth(TEXT_VALUE, 50));
+        NB_WORDS = Math.round(Math.sqrt((WIDTH * WIDTH) + (HEIGHT * HEIGHT)) / BrowserText.getWidth(TEXT_VALUE, 50));
         document.getElementById('wordNbInput').value = NB_WORDS;
         RESET_NB_WORDS = false;
     }
@@ -205,7 +204,10 @@ function draw() {
     }
 }
 
-function clear() {
+function clearDiagonalText() {
+    let board = document.getElementById("text-base");
+    let container = document.getElementById("container");
+
     board.remove();
     words = [];
 
@@ -361,15 +363,15 @@ function textHandler() {
     if (TEXT_VALUE.charAt(TEXT_VALUE.length - 1) !== ' ')
         TEXT_VALUE += " ";
     RESET_NB_WORDS = true;
-    clear();
-    draw();
+    clearDiagonalText();
+    drawDiagonalText();
 }
 
 function widthHandler() {
     WIDTH = parseInt(widthInput.value);
     RESET_NB_WORDS = true;
-    clear();
-    draw();
+    clearDiagonalText();
+    drawDiagonalText();
     board.setAttribute('w', WIDTH);
     let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
     board.setAttribute('viewBox', vb);
@@ -378,8 +380,8 @@ function widthHandler() {
 function heightHandler() {
     HEIGHT = parseInt(heightInput.value);
     RESET_NB_WORDS = true;
-    clear();
-    draw();
+    clearDiagonalText();
+    drawDiagonalText();
     board.setAttribute('h', HEIGHT);
     let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
     board.setAttribute('viewBox', vb);
@@ -388,22 +390,22 @@ function heightHandler() {
 function wordNbHandler() {
     NB_WORDS = parseInt(wordNbInput.value);
 
-    clear();
-    draw();
+    clearDiagonalText();
+    drawDiagonalText();
 }
 
 spacingSlider.addEventListener('input', () => {
     SPACING = parseInt(spacingSlider.value);
     spacingInput.value = SPACING;
-    clear();
-    draw();
+    clearDiagonalText();
+    drawDiagonalText();
 });
 spacingInput.addEventListener('input', () => {
     if (spacingInput.value >= SPACING_MIN && spacingInput.value <= SPACING_MAX) {
         SPACING = parseInt(spacingInput.value);
         spacingSlider.value = SPACING;
-        clear();
-        draw();
+        clearDiagonalText();
+        drawDiagonalText();
     }
 });
 
@@ -444,14 +446,14 @@ strokeWidthInput.addEventListener('input', () => {
 
 fontFamilyInput.addEventListener('input', () => {
     FONT_FAMILY = fontFamilyInput.value.toString();
-    clear();
-    draw();
+    clearDiagonalText();
+    drawDiagonalText();
 });
 
 fontFamilyURL.addEventListener('input', () => {
     FONT_URL = fontFamilyURL.value.toString();
-    clear();
-    draw();
+    clearDiagonalText();
+    drawDiagonalText();
 });
 
 snapshotBtn.addEventListener('click', () => {
@@ -496,5 +498,8 @@ function generateRandomBackground() {
     wordSpacingInput.value = WORD_SPACING;
 }
 
-generateRandomBackground();
-draw();
+export function create() {
+    clearDiagonalText();
+    generateRandomBackground();
+    drawDiagonalText();
+}

@@ -24,13 +24,13 @@
 
   <!-- Plausible -->
   <script defer data-domain="textbgs.com" src="https://plausible.io/js/plausible.js"></script>
-  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+  <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
   <!-- Place favicon.ico in the root directory -->
 </head>
 
 <body>
 
-<div id="app">
+  <div id="app">
     <div class="actions">
       <div class="content-block bg-primary " id="settings">
         <div class="close-btn" id="settingsCloseBtn"></div>
@@ -47,12 +47,15 @@
 
           <li class="mb-2">
             <label for="heightInput" class="input-label">Height</label>
-            <input id="heightInput" type="number" min="1" max="4329" value="1080" class="input input-xs input-secondary">
+            <input id="heightInput" type="number" min="1" max="4329" value="1080"
+              class="input input-xs input-secondary">
           </li>
 
           <li class="mb-2">
             <label for="fontURLInput" class="input-label">Font url</label>
-            <input id="fontURLInput" type="text" value="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" class="input input-xs input-secondary">
+            <input id="fontURLInput" type="text"
+              value="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"
+              class="input input-xs input-secondary">
           </li>
 
           <li class="mb-2">
@@ -70,32 +73,30 @@
           <div class="mb-2 block float-left">
             <label for="backgroundColorInput" class="input-label">Background Color</label>
             <div>
-              <input type="color" id="backgroundColorInput" value="#00ffc0">
+              <input type="color" id="backgroundColorInput" value="#00ffc0" class="cursor-pointer">
             </div>
           </div>
 
           <div class="mb-2 block">
             <label for="fontColorInput">Font Color</label>
             <div>
-              <input type="color" id="fontColorInput" value="#ffffff">
+              <input type="color" id="fontColorInput" value="#ffffff" class="cursor-pointer">
             </div>
           </div>
         </div>
 
-        <div id="slider-inputs">
-          <div class="mb-2 block">
-            <label for="spacingSlider" class="slider-input-label">Spacing</label>
-            <div class="flex">
-              <input id="spacingSlider" type="range" min="100" max="500" value="200" step="1" class="range range-sm range-secondary mr-2">
-              <input id="spacingInput" type="number" min="100" max="500" value="200" step="1" class="input input-xs input-secondary slider-input">
+        <div id="mode-input">
+          <div class="mb-2 block float-left">
+            <label for="backgroundColorInput" class="input-label">Diagonal text</label>
+            <div class="cursor-pointer" id="diagonalBtn">
+              📈
             </div>
           </div>
 
           <div class="mb-2 block">
-            <label for="rotationSlider" class="slider-input-label">Rotation</label>
-            <div class="flex">
-              <input id="rotationSlider" type="range" min="-360" max="360" value="-45" step="1" class="range range-sm range-secondary mr-2">
-              <input id="rotationInput" type="number" min="-360" max="360" value="-45" step="1" class="input input-xs input-secondary slider-input">
+            <label for="fontColorInput">Spiral text</label>
+            <div class="cursor-pointer" id="spiralBtn">
+              🌀
             </div>
           </div>
 
@@ -103,8 +104,10 @@
             <label for="fontSizeSlider" class="slider-input-label">Font Size</label>
 
             <div class="flex">
-              <input id="fontSizeSlider" type="range" min="1" max="500" value="50" step="1" class="range range-sm range-secondary mr-2">
-              <input id="fontSizeInput" type="number" min="1" max="500" value="50" step="1" class="input input-xs input-secondary slider-input">
+              <input id="fontSizeSlider" type="range" min="1" max="500" value="50" step="1"
+                class="range range-sm range-secondary mr-2">
+              <input id="fontSizeInput" type="number" min="1" max="500" value="50" step="1"
+                class="input input-xs input-secondary slider-input">
             </div>
           </div>
 
@@ -112,8 +115,10 @@
             <label for="strokeWidthSlider" class="slider-input-label">Stroke Width</label>
 
             <div class="flex">
-              <input id="strokeWidthSlider" type="range" min="0" max="50" value="5" class="range range-sm range-secondary mr-2">
-              <input id="strokeWidthInput" type="number" min="0" max="50" value="5" class="input input-xs input-secondary slider-input">
+              <input id="strokeWidthSlider" type="range" min="0" max="20" value="5"
+                class="range range-sm range-secondary mr-2">
+              <input id="strokeWidthInput" type="number" min="0" max="20" value="5"
+                class="input input-xs input-secondary slider-input">
             </div>
           </div>
 
@@ -121,8 +126,66 @@
             <label for="wordSpacingSlider" class="slider-input-label">Word Spacing</label>
 
             <div class="flex">
-              <input id="wordSpacingSlider" type="range" min="0" max="500" value="5" class="range range-sm range-secondary mr-2">
-              <input id="wordSpacingInput" type="number" min="0" max="500" value="5" class="input input-xs input-secondary slider-input">
+              <input id="wordSpacingSlider" type="range" min="0" max="500" value="5"
+                class="range range-sm range-secondary mr-2">
+              <input id="wordSpacingInput" type="number" min="0" max="500" value="5"
+                class="input input-xs input-secondary slider-input">
+            </div>
+          </div>
+        </div>
+
+        <div id="slider-inputs">
+          <div id="diagonalTextInputs">
+            <div class="mb-2 block">
+              <label for="spacingSlider" class="slider-input-label">Spacing</label>
+              <div class="flex">
+                <input id="spacingSlider" type="range" min="100" max="500" value="200" step="1"
+                  class="range range-sm range-secondary mr-2">
+                <input id="spacingInput" type="number" min="100" max="500" value="200" step="1"
+                  class="input input-xs input-secondary slider-input">
+              </div>
+            </div>
+
+            <div class="mb-2 block">
+              <label for="rotationSlider" class="slider-input-label">Rotation</label>
+              <div class="flex">
+                <input id="rotationSlider" type="range" min="-360" max="360" value="-45" step="1"
+                  class="range range-sm range-secondary mr-2">
+                <input id="rotationInput" type="number" min="-360" max="360" value="-45" step="1"
+                  class="input input-xs input-secondary slider-input">
+              </div>
+            </div>
+          </div>
+
+          <div id="spiralTextInputs" style="display: none;">
+            <div class="mb-2 block">
+              <label for="spiralSpacingSlider" class="slider-input-label">Spacing</label>
+              <div class="flex">
+                <input id="spiralSpacingSlider" type="range" min="1" max="500" value="30" step="1"
+                  class="range range-sm range-secondary mr-2">
+                <input id="spiralSpacingInput" type="number" min="1" max="500" value="30" step="1"
+                  class="input input-xs input-secondary slider-input">
+              </div>
+            </div>
+
+            <div class="mb-2 block">
+              <label for="spiralCountSlider" class="slider-input-label">Spiral count</label>
+              <div class="flex">
+                <input id="spiralCountSlider" type="range" min="1" max="500" value="100" step="1"
+                  class="range range-sm range-secondary mr-2">
+                <input id="spiralCountInput" type="number" min="1" max="500" value="100" step="1"
+                  class="input input-xs input-secondary slider-input">
+              </div>
+            </div>
+
+            <div class="mb-2 block">
+              <label for="stepSlider" class="slider-input-label">Step</label>
+              <div class="flex">
+                <input id="stepSlider" type="range" min="30" max="100" value="30" step="1"
+                  class="range range-sm range-secondary mr-2">
+                <input id="stepInput" type="number" min="30" max="100" value="30" step="1"
+                  class="input input-xs input-secondary slider-input">
+              </div>
             </div>
           </div>
 
@@ -138,71 +201,95 @@
           ⚙️
         </button>
       </div>
-  </div>
-
-  <div class="socials">
-    <div class="content-block bg-primary hide" id="socials">
-      <div class="close-btn" id="socialsCloseBtn"></div>
-      <ul id="socialBtns">
-        <li class="mb-2 block">
-          <label class="slider-input-label">Github</label>
-
-          <div class="flex justify-center m-auto" style="width: 30%">
-            <a href="https://github.com/samuelOsborne/svg-text-bgs" class="w-full h-full" target="_blank">
-              <svg viewBox="0 0 512 512"><path d="M256 70.7c-102.6 0-185.9 83.2-185.9 185.9 0 82.1 53.3 151.8 127.1 176.4 9.3 1.7 12.3-4 12.3-8.9V389.4c-51.7 11.3-62.5-21.9-62.5-21.9 -8.4-21.5-20.6-27.2-20.6-27.2 -16.9-11.5 1.3-11.3 1.3-11.3 18.7 1.3 28.5 19.2 28.5 19.2 16.6 28.4 43.5 20.2 54.1 15.4 1.7-12 6.5-20.2 11.8-24.9 -41.3-4.7-84.7-20.6-84.7-91.9 0-20.3 7.3-36.9 19.2-49.9 -1.9-4.7-8.3-23.6 1.8-49.2 0 0 15.6-5 51.1 19.1 14.8-4.1 30.7-6.2 46.5-6.3 15.8 0.1 31.7 2.1 46.6 6.3 35.5-24 51.1-19.1 51.1-19.1 10.1 25.6 3.8 44.5 1.8 49.2 11.9 13 19.1 29.6 19.1 49.9 0 71.4-43.5 87.1-84.9 91.7 6.7 5.8 12.8 17.1 12.8 34.4 0 24.9 0 44.9 0 51 0 4.9 3 10.7 12.4 8.9 73.8-24.6 127-94.3 127-176.4C441.9 153.9 358.6 70.7 256 70.7z"/></svg>
-            </a>
-          </div>
-        </li>
-
-        <li class="mb-2 block">
-          <label class="slider-input-label">Twitter</label>
-
-          <div class="flex justify-center m-auto" style="width: 30%">
-            <a href="https://twitter.com/sam_osb" class="w-full h-full" target="_blank">
-              <svg viewBox="0 0 512 512"><path d="M419.6 168.6c-11.7 5.2-24.2 8.7-37.4 10.2 13.4-8.1 23.8-20.8 28.6-36 -12.6 7.5-26.5 12.9-41.3 15.8 -11.9-12.6-28.8-20.6-47.5-20.6 -42 0-72.9 39.2-63.4 79.9 -54.1-2.7-102.1-28.6-134.2-68 -17 29.2-8.8 67.5 20.1 86.9 -10.7-0.3-20.7-3.3-29.5-8.1 -0.7 30.2 20.9 58.4 52.2 64.6 -9.2 2.5-19.2 3.1-29.4 1.1 8.3 25.9 32.3 44.7 60.8 45.2 -27.4 21.4-61.8 31-96.4 27 28.8 18.5 63 29.2 99.8 29.2 120.8 0 189.1-102.1 185-193.6C399.9 193.1 410.9 181.7 419.6 168.6z"/></svg>
-            </a>
-          </div>
-        </li>
-
-        <li class="mb-2 block">
-          <label class="slider-input-label">Buy me a coffee</label>
-
-          <div class="flex justify-center">
-            <a href="https://www.buymeacoffee.com/samosb" target="_blank">
-              ☕️
-            </a>
-          </div>
-        </li>
-
-      </ul>
     </div>
 
-    <div class="flex" id="socialsBtn">
-      <button id="show-socials" class="btn">
-        👋
-      </button>
-    </div>
-  </div>
+    <div class="socials">
+      <div class="content-block bg-primary hide" id="socials">
+        <div class="close-btn" id="socialsCloseBtn"></div>
+        <ul id="socialBtns">
+          <li class="mb-2 block">
+            <label class="slider-input-label">Github</label>
 
-    <div id="scale-wrap" class="items-center m-auto z-0" style="transform: scale(0.25);">
+            <div class="flex justify-center m-auto" style="width: 30%">
+              <a href="https://github.com/samuelOsborne/svg-text-bgs" class="w-full h-full" target="_blank">
+                <svg viewBox="0 0 512 512">
+                  <path
+                    d="M256 70.7c-102.6 0-185.9 83.2-185.9 185.9 0 82.1 53.3 151.8 127.1 176.4 9.3 1.7 12.3-4 12.3-8.9V389.4c-51.7 11.3-62.5-21.9-62.5-21.9 -8.4-21.5-20.6-27.2-20.6-27.2 -16.9-11.5 1.3-11.3 1.3-11.3 18.7 1.3 28.5 19.2 28.5 19.2 16.6 28.4 43.5 20.2 54.1 15.4 1.7-12 6.5-20.2 11.8-24.9 -41.3-4.7-84.7-20.6-84.7-91.9 0-20.3 7.3-36.9 19.2-49.9 -1.9-4.7-8.3-23.6 1.8-49.2 0 0 15.6-5 51.1 19.1 14.8-4.1 30.7-6.2 46.5-6.3 15.8 0.1 31.7 2.1 46.6 6.3 35.5-24 51.1-19.1 51.1-19.1 10.1 25.6 3.8 44.5 1.8 49.2 11.9 13 19.1 29.6 19.1 49.9 0 71.4-43.5 87.1-84.9 91.7 6.7 5.8 12.8 17.1 12.8 34.4 0 24.9 0 44.9 0 51 0 4.9 3 10.7 12.4 8.9 73.8-24.6 127-94.3 127-176.4C441.9 153.9 358.6 70.7 256 70.7z" />
+                </svg>
+              </a>
+            </div>
+          </li>
+
+          <li class="mb-2 block">
+            <label class="slider-input-label">Twitter</label>
+
+            <div class="flex justify-center m-auto" style="width: 30%">
+              <a href="https://twitter.com/sam_osb" class="w-full h-full" target="_blank">
+                <svg viewBox="0 0 512 512">
+                  <path
+                    d="M419.6 168.6c-11.7 5.2-24.2 8.7-37.4 10.2 13.4-8.1 23.8-20.8 28.6-36 -12.6 7.5-26.5 12.9-41.3 15.8 -11.9-12.6-28.8-20.6-47.5-20.6 -42 0-72.9 39.2-63.4 79.9 -54.1-2.7-102.1-28.6-134.2-68 -17 29.2-8.8 67.5 20.1 86.9 -10.7-0.3-20.7-3.3-29.5-8.1 -0.7 30.2 20.9 58.4 52.2 64.6 -9.2 2.5-19.2 3.1-29.4 1.1 8.3 25.9 32.3 44.7 60.8 45.2 -27.4 21.4-61.8 31-96.4 27 28.8 18.5 63 29.2 99.8 29.2 120.8 0 189.1-102.1 185-193.6C399.9 193.1 410.9 181.7 419.6 168.6z" />
+                </svg>
+              </a>
+            </div>
+          </li>
+
+          <li class="mb-2 block">
+            <label class="slider-input-label">Buy me a coffee</label>
+
+            <div class="flex justify-center">
+              <a href="https://www.buymeacoffee.com/samosb" target="_blank">
+                ☕️
+              </a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="flex" id="socialsBtn">
+        <button id="show-socials" class="btn">
+          👋
+        </button>
+      </div>
+    </div>
+
+    <!-- <div id="scale-wrap" class="items-center m-auto z-0" style="transform: scale(0.25);">
       <div id="container" style="position:relative; width: 1920px; height: 1080px">
         <svg viewBox="0 0 1920 1080" id="text-base" xmlns="http://www.w3.org/2000/svg"
              style="background-color:#00ffc0; width: 100%; height: 100%" preserveAspectRatio="xMidYMin">
           <style type="text/css">
             @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
-          </style>
+          </style> -->
 
-          <!-- Guidelines -->
-          <!-- <line x1="960" y1="0" x2="960" y2="1080" stroke="#000000" stroke-width="1"/>
+    <!-- Guidelines -->
+    <!-- <line x1="960" y1="0" x2="960" y2="1080" stroke="#000000" stroke-width="1"/>
           <line x1="0" y1="540" x2="1920" y2="540" stroke="#000000" stroke-width="1"/> -->
+    <!-- </svg>
+      </div> -->
+
+    <div id="scale-wrap" class="items-center m-auto z-0" style="transform: scale(0.25);">
+      <div id="container" style="position:relative; width: 1920px; height: 1080px">
+        <svg id="text-base" xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080"
+          style="background-color:#00ffc0;">
+          <style type="text/css">
+            @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+          </style> -->
+
+          <path id="spiral" d="" fill="none" stroke="none" stroke-width="3" />
+          <text>
+            <textPath id="spiraledText" xlink:href="#spiral"></textPath>
+          </text>
         </svg>
       </div>
     </div>
-</div>
 
-<script type="module" src="/main-optimization-test-01.js"></script>
-<script type="module" src="/panels.js"></script>
-<script type="module" src="/scale-svg.js"></script>
+  </div>
+  <!-- <script type="module" src="js/main.js"></script> -->
+  <!-- <script type="module" src="js/spiral.js"></script> -->
+  <script type="module" src="js/globalState.js"></script>
+  <!-- <script type="module" src="js/main-optimization-test-01.js"></script> -->
+  <script type="module" src="js/panels.js"></script>
+  <script type="module" src="js/scale-svg.js"></script>
 
 </body>
 

@@ -4,6 +4,10 @@
 let settingsCloseBtn = document.getElementById('settingsCloseBtn');
 let settingsBtn = document.getElementById('settingsBtn');
 let settingsPanel = document.getElementById('settings');
+let diagonalTextBtn = document.getElementById('diagonalBtn');
+let spiralTextBtn = document.getElementById('spiralBtn');
+let diagonalTextSettingsPanel = document.getElementById('diagonalTextInputs');
+let spiralTextSettingsPanel = document.getElementById('spiralTextInputs');
 
 /**
  * Socials panel
@@ -32,6 +36,20 @@ settingsBtn.addEventListener("click", () => {
         socialsPanel.style.display = "none";
     }
 });
+
+/**
+ * Diagonal / spiral text panel activators
+ */
+diagonalTextBtn.addEventListener("click", () => {
+    spiralTextSettingsPanel.style.display = "none";
+    diagonalTextSettingsPanel.style.display = "block";
+});
+
+spiralTextBtn.addEventListener("click", () => {
+    diagonalTextSettingsPanel.style.display = "none";
+    spiralTextSettingsPanel.style.display = "block";
+});
+
 
 /**
  * Socials panel controls
