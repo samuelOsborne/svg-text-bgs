@@ -42,7 +42,7 @@ export class DiagonalText {
             this.drawDiagonalText();
         });
         this.spacingInput.addEventListener('input', () => {
-            if (this.spacingInput.value >= this.SPACING_MIN && this.spacingInput.value <= SPACING_MAX) {
+            if (this.spacingInput.value >= this.SPACING_MIN && this.spacingInput.value <= this.SPACING_MAX) {
                 this.SPACING = parseInt(this.spacingInput.value);
                 this.spacingSlider.value = this.SPACING;
                 this.clearDiagonalText();
@@ -59,7 +59,7 @@ export class DiagonalText {
             this.ROTATION = parseInt(this.rotationInput.value.toString());
             if (isNaN(this.ROTATION))
                 this.ROTATION = -45;
-            this.rotationSlider.value = parseInt(ROTATION);
+            this.rotationSlider.value = parseInt(this.ROTATION);
             this.changeRotation();
         })
 

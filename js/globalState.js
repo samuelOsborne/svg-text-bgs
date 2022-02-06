@@ -1,6 +1,6 @@
 import '../style.css'
 import { createSpiral } from './spiral';
-import { createDiagonalText } from './diagonalText';
+import { createDiagonalText, DiagonalText } from './diagonalText';
 import * as globals from './globals';
 
 export let currentMode = 0;
@@ -265,12 +265,25 @@ strokeWidthInput.addEventListener('input', (e) => {
 
 fontFamilyInput.addEventListener('input', (e) => {
     globals.setFontFamily(e.target.value.toString());
-    createSpiral();
+    console.log(e.target.value.toString());
+    if (currentMode === 0) {
+        diagonalText.redraw();
+        console.log("redrawing");
+    } else if (currentMode === 1) {
+        spiralText.drawSpiral();
+    }
 });
 
 fontFamilyURL.addEventListener('input', (e) => {
     globals.setFontUrl(e.target.value.toString());
-    createSpiral();
+    console.log(e.target.value.toString());
+
+    if (currentMode === 0) {
+        console.log("redrawing");
+        diagonalText.redraw();
+    } else if (currentMode === 1) {
+        spiralText.drawSpiral();
+    }
 });
 
 snapshotBtn.addEventListener('click', () => {

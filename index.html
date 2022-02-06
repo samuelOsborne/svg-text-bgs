@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>SVG Text Backgrounds</title>
+  <title>Text Backgrounds</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -34,7 +34,7 @@
       <div class="content-block bg-primary " id="settings">
         <div class="close-btn" id="settingsCloseBtn"></div>
         <div class="reglisse">
-          SVG Text Backgrounds
+          Text Backgrounds
         </div>
         <ul id="inputs">
           <li class="mb-2">
@@ -151,9 +151,9 @@
             <div class="mb-2 block">
               <label for="rotationSlider" class="slider-input-label">Rotation</label>
               <div class="flex">
-                <input id="rotationSlider" type="range" min="-360" max="360" value="-45" step="1"
+                <input id="rotationSlider" type="range" min="-180" max="180" value="-45" step="1"
                   class="range range-sm range-secondary mr-2">
-                <input id="rotationInput" type="number" min="-360" max="360" value="-45" step="1"
+                <input id="rotationInput" type="number" min="-180" max="180" value="-45" step="1"
                   class="input input-xs input-secondary slider-input">
               </div>
             </div>
@@ -286,6 +286,8 @@
           </g>
         </svg>
       </div>
+
+      <canvas id="canvas" style="position:relative; width: 1920px; height: 1080px"></canvas>
     </div>
 
   </div>
