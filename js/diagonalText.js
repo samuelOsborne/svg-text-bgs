@@ -1,53 +1,7 @@
-import * as globals from './globalState';
-
-/**
- * HD
- */
-// let WIDTH = 1920;
-// let HEIGHT = 1080;
-
-/**
- * 8K FUHD
- */
-// let WIDTH = 7680;
-// let HEIGHT = 4320;
-
-/**
- * 4K UHD
- */
-// let WIDTH = 3840;
-// let HEIGHT = 2160;
-
-// let SPACING = 200;
-// let SPACING_MIN = 100;
-// let SPACING_MAX = 500;
-
-// let ROTATION = '-45'
-// let FONT_SIZE = '50px';
-// let FONT_FAMILY = 'JetBrains Mono, Arial, Helvetica, sans-serif';
-// let FONT_COLOR = '#ffffff';
-// let STROKE_WIDTH = '5';
-// let TEXT_VALUE = "SVGENIUS ";
-// let BACKGROUND_COLOR = '#00ffc0';
-// let WORD_SPACING = 5;
-
-// let TEXT_ANCHOR = 'middle';
-// let TEXT_LENGTH = '0';
-// let NB_LINES = 0;
-// let NB_WORDS = 0;
+import * as globals from './globals';
 
 let canvas = document.createElement('canvas')
 let context = canvas.getContext('2d');
-
-
-/**
- * Flags
- */
-// export let RESET_NB_WORDS = true;
-
-/**
- * Presets
- */
 
 const BrowserText = (function () {
     /**
@@ -81,9 +35,6 @@ export class DiagonalText {
     ROTATION = '-45'
 
     constructor(spacing, rotation) {
-        /**
-         * Init listeners
-         */
         this.spacingSlider.addEventListener('input', () => {
             this.SPACING = parseInt(this.spacingSlider.value);
             this.spacingInput.value = this.SPACING;
@@ -126,17 +77,14 @@ export class DiagonalText {
 
     drawDiagonalText() {
         let x = -globals.WIDTH / 4;
-        let board = document.getElementById("text-base");
+        let clipPath = document.getElementById("clip-path");
 
         if (globals.RESET_NB_WORDS) {
             globals.setNbWords(
                 Math.round(Math.sqrt((globals.WIDTH * globals.WIDTH)
              + (globals.HEIGHT * globals.HEIGHT)) / BrowserText.getWidth(globals.TEXT_VALUE, 50))
             );
-
-            // NB_WORDS = Math.round(Math.sqrt((globals.WIDTH * globals.WIDTH)
-            //  + (globals.HEIGHT * globals.HEIGHT)) / BrowserText.getWidth(globals.TEXT_VALUE, 50));
-            // document.getElementById('wordNbInput').value = globals.NB_WORDS;
+            document.getElementById('wordNbInput').value = globals.NB_WORDS;
             globals.setResetNbWords(false);
         }
 
@@ -145,11 +93,6 @@ export class DiagonalText {
         for (let i = -globals.WIDTH / 4; i <= globals.WIDTH + (globals.WIDTH / 4); i += this.SPACING) {
             let txt = "";
             let txtLength = 0;
-
-            /**
-             * Offset the words from the top
-             */
-            // i % 2 === 0 ? NB_WORDS += OFFSET : NB_WORDS -= OFFSET;
 
             for (let j = 0; j < globals.NB_WORDS; j++) {
                 txt += globals.TEXT_VALUE;
@@ -184,34 +127,41 @@ export class DiagonalText {
             let fullTxt = document.createTextNode(txt);
             word.appendChild(fullTxt);
 
-            board.appendChild(word);
+            clipPath.appendChild(word);
 
             x += this.SPACING;
         }
     }
 
     clearDiagonalText() {
-        console.log("clearing text");
         let board = document.getElementById("text-base");
         let container = document.getElementById("container");
 
         board.remove();
         this._words = [];
 
-        let elem = `<svg viewBox="0 0 1920 1080" id="text-base" xmlns="http://www.w3.org/2000/svg" style="background-color:#ffffff;">
-        <style type="text/css">
-          @import url('${globals.FONT_URL}');
-        </style>
+        let elem = `
+        <svg viewBox="0 0 1920 1080" id="text-base" xmlns="http://www.w3.org/2000/svg" style="background-color:#ffffff;">
+            <style type="text/css">
+            @import url('${globals.FONT_URL}');
+            </style>
+        
+            <style>
+            .small { font: italic 13px sans-serif; }
+            .heavy { font: bold 30px sans-serif; }
+            </style>
+
+            <defs>
+                <rect id="rect" width="100%" height="100%" fill="#d3d3d3" />
+                <clipPath id="clip">
+                    <use xlink:href="#rect"/>
+                </clipPath>
+            </defs>
+
+            <g clip-path="url(#clip)" id="clip-path">
+            </g>
     
-        <style>
-          .small { font: italic 13px sans-serif; }
-          .heavy { font: bold 30px sans-serif; }
-        </style>
-    
-        <!-- Guidelines -->
-        <line x1="960" y1="0" x2="960" y2="1080" stroke="#000000" stroke-width="1"/>
-        <line x1="0" y1="540" x2="1920" y2="540" stroke="#000000" stroke-width="1"/>
-      </svg>`;
+        </svg>`;
 
         container.innerHTML = elem;
         board = document.getElementById("text-base");
@@ -265,7 +215,6 @@ export function createDiagonalText() {
     let diagonalText = new DiagonalText();
 
     diagonalText.clearDiagonalText();
-    // diagonalText.generateRandomBackground();
     diagonalText.drawDiagonalText();
     return diagonalText;
 }

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>SVG Text Background</title>
+  <title>SVG Text Backgrounds</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -25,7 +25,6 @@
   <!-- Plausible -->
   <script defer data-domain="textbgs.com" src="https://plausible.io/js/plausible.js"></script>
   <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
-  <!-- Place favicon.ico in the root directory -->
 </head>
 
 <body>
@@ -34,6 +33,9 @@
     <div class="actions">
       <div class="content-block bg-primary " id="settings">
         <div class="close-btn" id="settingsCloseBtn"></div>
+        <div class="reglisse">
+          SVG Text Backgrounds
+        </div>
         <ul id="inputs">
           <li class="mb-2">
             <label for="textInput" class="input-label">Text</label>
@@ -161,9 +163,9 @@
             <div class="mb-2 block">
               <label for="spiralSpacingSlider" class="slider-input-label">Spacing</label>
               <div class="flex">
-                <input id="spiralSpacingSlider" type="range" min="1" max="500" value="30" step="1"
+                <input id="spiralSpacingSlider" type="range" min="1" max="500" value="115" step="1"
                   class="range range-sm range-secondary mr-2">
-                <input id="spiralSpacingInput" type="number" min="1" max="500" value="30" step="1"
+                <input id="spiralSpacingInput" type="number" min="1" max="500" value="115" step="1"
                   class="input input-xs input-secondary slider-input">
               </div>
             </div>
@@ -171,9 +173,9 @@
             <div class="mb-2 block">
               <label for="spiralCountSlider" class="slider-input-label">Spiral count</label>
               <div class="flex">
-                <input id="spiralCountSlider" type="range" min="1" max="500" value="100" step="1"
+                <input id="spiralCountSlider" type="range" min="1" max="30" value="5" step="1"
                   class="range range-sm range-secondary mr-2">
-                <input id="spiralCountInput" type="number" min="1" max="500" value="100" step="1"
+                <input id="spiralCountInput" type="number" min="1" max="30" value="5" step="1"
                   class="input input-xs input-secondary slider-input">
               </div>
             </div>
@@ -185,6 +187,13 @@
                   class="range range-sm range-secondary mr-2">
                 <input id="stepInput" type="number" min="30" max="100" value="30" step="1"
                   class="input input-xs input-secondary slider-input">
+              </div>
+            </div>
+
+            <div class="mb-2 block">
+              <label for="showSpiralPath" class="slider-input-label">Show spiral path</label>
+              <div class="flex">
+                <input id="showSpiralPath" type="checkbox" class="mr-2 checkbox">
               </div>
             </div>
           </div>
@@ -253,20 +262,6 @@
       </div>
     </div>
 
-    <!-- <div id="scale-wrap" class="items-center m-auto z-0" style="transform: scale(0.25);">
-      <div id="container" style="position:relative; width: 1920px; height: 1080px">
-        <svg viewBox="0 0 1920 1080" id="text-base" xmlns="http://www.w3.org/2000/svg"
-             style="background-color:#00ffc0; width: 100%; height: 100%" preserveAspectRatio="xMidYMin">
-          <style type="text/css">
-            @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
-          </style> -->
-
-    <!-- Guidelines -->
-    <!-- <line x1="960" y1="0" x2="960" y2="1080" stroke="#000000" stroke-width="1"/>
-          <line x1="0" y1="540" x2="1920" y2="540" stroke="#000000" stroke-width="1"/> -->
-    <!-- </svg>
-      </div> -->
-
     <div id="scale-wrap" class="items-center m-auto z-0" style="transform: scale(0.25);">
       <div id="container" style="position:relative; width: 1920px; height: 1080px">
         <svg id="text-base" xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080"
@@ -275,19 +270,26 @@
             @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
           </style> -->
 
-          <path id="spiral" d="" fill="none" stroke="none" stroke-width="3" />
-          <text>
-            <textPath id="spiraledText" xlink:href="#spiral"></textPath>
-          </text>
+          <style>
+            .small { font: italic 13px sans-serif; }
+            .heavy { font: bold 30px sans-serif; }
+          </style>
+          
+          <defs>
+            <rect id="rect" width="100%" height="100%" fill="none" stroke="blue" />
+            <clipPath id="clip">
+                <use xlink:href="#rect"/>
+            </clipPath>
+          </defs>
+
+          <g clip-path="url(#clip)" id="clip-path">
+          </g>
         </svg>
       </div>
     </div>
 
   </div>
-  <!-- <script type="module" src="js/main.js"></script> -->
-  <!-- <script type="module" src="js/spiral.js"></script> -->
   <script type="module" src="js/globalState.js"></script>
-  <!-- <script type="module" src="js/main-optimization-test-01.js"></script> -->
   <script type="module" src="js/panels.js"></script>
   <script type="module" src="js/scale-svg.js"></script>
 

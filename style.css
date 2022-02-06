@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Reglisse';
+  src:url("/fonts/Reglisse.otf");
+}
+
 :root {
   --rounded-btn: 0;
 }
@@ -27,6 +32,12 @@ body {
 
 #inputs {
   padding-top: 35px;
+}
+
+.reglisse {
+  font-family: 'Reglisse';
+  font-size: 23px;
+  color: deeppink;
 }
 
 .actions {

@@ -1,87 +1,15 @@
-import * as globals from './globalState';
+import * as globals from './globals';
 
-/**
- * Presets
- */
-let PRESETS = [
-    {
-        word: 'HAMBURGER 🍔 ',
-        backgroundColor: '#FF0000',
-        fontColor: "#FFFFFF",
-        spacing: 200,
-        rotation: -45,
-        fontSize: 50,
-        strokeWidth: 5,
-        wordSpacing: 5
-    },
-    {
-        word: 'Delivermoo 🐄 ',
-        backgroundColor: '#00ccbc',
-        fontColor: "#FFFFFF",
-        spacing: 384,
-        rotation: 39,
-        fontSize: 52,
-        strokeWidth: 3,
-        wordSpacing: 0
-    },
-    {
-        word: 'Nine guys 🌯 ',
-        backgroundColor: '#FF0000',
-        fontColor: "#FFFFFF",
-        spacing: 384,
-        rotation: 39,
-        fontSize: 52,
-        strokeWidth: 3,
-        wordSpacing: 0
-    },
-    {
-        word: 'Howdy 🤠 ',
-        backgroundColor: '#BB00FF',
-        fontColor: "#FFFFFF",
-        spacing: 384,
-        rotation: 321,
-        fontSize: 52,
-        strokeWidth: 3,
-        wordSpacing: 0
-    },
-    {
-        word: 'WooHoo! ',
-        backgroundColor: '#FFFFFF',
-        fontColor: "#D400FF",
-        spacing: 181,
-        rotation: -50,
-        fontSize: 52,
-        strokeWidth: 3,
-        wordSpacing: 0
-    },
-    {
-        word: 'Take me to your leader! 👽 ',
-        backgroundColor: '#000000',
-        fontColor: "#CFCFCF",
-        spacing: 216,
-        rotation: -30,
-        fontSize: 36,
-        strokeWidth: 3,
-        wordSpacing: 0
-    },
-    {
-        word: 'Freddie! 🐈 ',
-        backgroundColor: '#FF33A0',
-        fontColor: "#FFFFFF",
-        spacing: 470,
-        rotation: -38,
-        fontSize: 36,
-        strokeWidth: 3,
-        wordSpacing: 0
-    },
-]
+//Todo:
+//Spiral: spiral needs to be kept at a minimum size
+//backgrounds + text not showing in figma
 
 export class Spiral {
     _center = { x: globals.WIDTH / 2, y: globals.HEIGHT / 2 };
     _startRadius = 0;
-    _spacePerLoop = 30;
+    _spacePerLoop = 115;
     _startTheta = 0;
-    _endTheta = 100;
+    _endTheta = 5;
     _thetaStep = 30;
     _spacingSlider = document.getElementById("spiralSpacingSlider");
     _spacingInput = document.getElementById("spiralSpacingInput");
@@ -89,6 +17,7 @@ export class Spiral {
     _spiralCountInput = document.getElementById("spiralCountInput");
     _stepSlider = document.getElementById("stepSlider");
     _stepInput = document.getElementById("stepInput");
+    _showPathCheckbox = document.getElementById("showSpiralPath");
 
     constructor() {
         this._spacingSlider.addEventListener("input", (e) => {
@@ -122,6 +51,16 @@ export class Spiral {
             this._thetaStep = e.target.value;
             this._stepSlider.value = this._thetaStep;
             this.drawSpiral();
+        });
+
+        this._showPathCheckbox.addEventListener('change', (e) => {
+            let spiralPath = document.getElementById("spiral");
+
+            if (this._showPathCheckbox.checked) {
+                spiralPath.setAttribute("stroke", "black");
+            } else {
+                spiralPath.setAttribute("stroke", "none");
+            }
         });
     }
 
@@ -202,9 +141,6 @@ export class Spiral {
     }
 
     drawSpiralPath() {
-        //X = half width
-        // Y = half height
-        // 3*360 = nb of spirals
         const path = this.getPath({ x: globals.WIDTH / 2, y: globals.HEIGHT / 2 }, 
             this._startRadius,
              this._spacePerLoop,
@@ -219,6 +155,7 @@ export class Spiral {
     setSpiralTextProperties() {
         let spiralText = document.getElementById("spiraledText");
 
+        spiralText.setAttributeNS(null, 'font-size', globals.FONT_SIZE);
         spiralText.setAttributeNS(null, 'font-family', globals.FONT_FAMILY);
         spiralText.setAttributeNS(null, 'stroke', globals.FONT_COLOR);
         spiralText.setAttributeNS(null, 'stroke-width', globals.STROKE_WIDTH);
@@ -226,11 +163,10 @@ export class Spiral {
     }
 
     drawSpiralText() {
-        this.setSpiralTextProperties();
-
         for (let i = 0; i < globals.NB_WORDS; i++) {
             document.querySelector("#spiraledText").textContent += globals.TEXT_VALUE;
         }
+        this.setSpiralTextProperties();
     }
 
     clearSpiralText() {
@@ -239,27 +175,42 @@ export class Spiral {
 
         board.remove();
 
-        let elem = `    
-        <svg id="text-base" xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"
-            viewBox="0 0 1920 1080" style="background-color:#00ffc0;">
+        let elem = `
+        <svg viewBox="0 0 1920 1080" id="text-base" xmlns="http://www.w3.org/2000/svg" style="background-color:#ffffff;">
             <style type="text/css">
-                @import url('${globals.FONT_URL}');
-            </style> -->
-    
-            <path id="spiral" d="" fill="none" stroke="none" stroke-width="3" />
-            <text>
-            <textPath id="spiraledText" xlink:href="#spiral"></textPath>
-            </text>            
-        </svg>
-        `
+            @import url('${globals.FONT_URL}');
+            </style>
+        
+            <style>
+            .small { font: italic 13px sans-serif; }
+            .heavy { font: bold 30px sans-serif; }
+            </style>
+            <defs>
+                <rect id="rect" width="100%" height="100%" fill="none"/>
+                <clipPath id="clip">
+                    <use xlink:href="#rect"/>
+                </clipPath>
+            </defs>
+
+            <g clip-path="url(#clip)">
+                <path id="spiral" d="" fill="none" stroke="none" stroke-width="3" />
+                <text id="text">
+                    <textPath id="spiraledText" xlink:href="#spiral"></textPath>
+                </text>
+            </g>
+      </svg>`;
+
 
         container.innerHTML = elem;
+        board = document.getElementById("text-base");
         board.style.backgroundColor = globals.BACKGROUND_COLOR;
         board.setAttribute('width', globals.WIDTH);
         board.setAttribute('height', globals.HEIGHT);
         let vb = "0 0 " + globals.WIDTH.toString() + " " + globals.HEIGHT.toString();
-        board.setAttribute('viewBox', vb);
-        // this.setSpiralTextProperties();
+        board.setAttribute('viewBox', vb);    
+        let spiralPath = document.getElementById("spiral");
+        if (this._showPathCheckbox.checked)
+            spiralPath.setAttribute("stroke", "black");
     }
 
     drawSpiral() {
@@ -267,7 +218,6 @@ export class Spiral {
         this.drawSpiralPath();
         this.drawSpiralText();    
     }
-
 }
 
 export function createSpiral() {

@@ -52,7 +52,6 @@ export function setFontSize(fs) {
     FONT_SIZE = fs;
 }
 
-
 export function setStrokeWidth(sw) {
     STROKE_WIDTH = sw;
 }
@@ -74,5 +73,9 @@ export function setFontColor(fc) {
 }
 
 export function setNbWords(nbWords) {
-    NB_WORDS;
+    NB_WORDS = nbWords;
+}
+
+export function setResetNbWords(reset) {
+    RESET_NB_WORDS = reset;
 }

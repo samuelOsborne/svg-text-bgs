@@ -68,7 +68,7 @@ let PRESETS = [
     {
         word: 'Take me to your leader! 👽 ',
         backgroundColor: '#000000',
-        fontColor: "#CFCFCF",
+        fontColor: "#00FF11",
         spacing: 216,
         rotation: -30,
         fontSize: 36,
@@ -87,113 +87,63 @@ let PRESETS = [
     },
 ]
 
-/**
- * HD
-*/
-export let WIDTH = 1920;
-export let HEIGHT = 1080;
-
-/**
- * 8K FUHD
- */
-// let WIDTH = 7680;
-// let HEIGHT = 4320;
-
-/**
- * 4K UHD
- */
-// let WIDTH = 3840;
-// let HEIGHT = 2160;
-
-export let FONT_FAMILY = 'JetBrains Mono, Arial, Helvetica, sans-serif';
-export let FONT_URL = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap';
-export let FONT_SIZE = '50px';
-export let STROKE_WIDTH = '5';
-export let WORD_SPACING = 5;
-
-export let TEXT_VALUE = "SVGENIUS ";
-export let BACKGROUND_COLOR = '#00ffc0';
-export let FONT_COLOR = '#ffffff';
-export let NB_WORDS = 5;
-
-/**
- * Flags
- */
-export let RESET_NB_WORDS = true;
-
-export function setNbWords(nb) {
-    NB_WORDS = nb;
-    document.getElementById('wordNbInput').value = NB_WORDS;
-}
-
-export function setResetNbWords(reset) {
-    RESET_NB_WORDS = reset;
-}
-
 function widthHandler() {
-    WIDTH = parseInt(widthInput.value);
-    RESET_NB_WORDS = true;
+    globals.setWidth(parseInt(widthInput.value));
+    globals.setResetNbWords(true);
+
     if (currentMode === 0) {
-        // do diagonal text
         diagonalText.redraw();
     }
     if (currentMode === 1) {
-        // createSpiral();
         spiralText.drawSpiral();
     }
-    board.setAttribute('w', WIDTH);
-    let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
+    board.setAttribute('w', globals.WIDTH);
+    let vb = "0 0 " + globals.WIDTH.toString() + " " + globals.HEIGHT.toString();
     board.setAttribute('viewBox', vb);
 }
 
 function heightHandler() {
-    HEIGHT = parseInt(heightInput.value);
-    RESET_NB_WORDS = true;
+    globals.setHeight(parseInt(heightInput.value));
+    globals.setResetNbWords(true);
     if (currentMode === 0) {
-        // do diagonal text
         diagonalText.redraw();
     }
     if (currentMode === 1) {
-        // createSpiral();
         spiralText.drawSpiral();
     }
-    board.setAttribute('h', HEIGHT);
-    let vb = "0 0 " + WIDTH.toString() + " " + HEIGHT.toString();
+    board.setAttribute('h', globals.HEIGHT);
+    let vb = "0 0 " + globals.WIDTH.toString() + " " + globals.HEIGHT.toString();
     board.setAttribute('viewBox', vb);
 }
 
 function textHandler() {
-    TEXT_VALUE = textInput.value;
+    globals.setTextValue(textInput.value);
     if (!textInput.value.length)
         return;
-    if (TEXT_VALUE.charAt(TEXT_VALUE.length - 1) !== ' ')
-        TEXT_VALUE += " ";
-    RESET_NB_WORDS = true;
+    if (globals.TEXT_VALUE.charAt(globals.TEXT_VALUE.length - 1) !== ' ') {
+        let tmp = globals.TEXT_VALUE + " "
+        globals.setTextValue(tmp);
+    }
+    globals.setResetNbWords(true);
     if (currentMode === 0) {
-        // do diagonal text
         diagonalText.redraw();
     }
     if (currentMode === 1) {
-        // createSpiral();
         spiralText.drawSpiral();
     }
 }
 
 function wordNbHandler() {
-    NB_WORDS = parseInt(wordNbInput.value);
-
+    globals.setNbWords(wordNbInput.value);
     if (currentMode === 0) {
-        // do diagonal text
         diagonalText.redraw();
         board = document.getElementById("text-base");
-        // spiralText = document.getElementById("spiraledText");
         container = document.getElementById("container");
-
-        //Call method here
     }
     if (currentMode === 1) {
-        // spiralText.createSpiral();
         spiralText.drawSpiral();
+        board = document.getElementById("text-base");
+        container = document.getElementById("container");
     }
 }
 
@@ -209,7 +159,7 @@ const debounce = (func, timeout = 1000) => {
 
 function changeBackgroundColor() {
     board.style.backgroundColor = backgroundColorInput.value;
-    BACKGROUND_COLOR = backgroundColorInput.value;
+    globals.setBackgroundColor(backgroundColorInput.value);
 }
 
 let fontSizeSlider = document.getElementById('fontSizeSlider');
@@ -262,7 +212,7 @@ function changeStrokeWidth() {
         diagonalText.changeStrokeWidth();
     }
     if (currentMode === 1) {
-        document.querySelector("#spiraledText").setAttributeNS(null, 'stroke-width', STROKE_WIDTH);
+        document.querySelector("#spiraledText").setAttributeNS(null, 'stroke-width', globals.STROKE_WIDTH);
     }
 }
 
@@ -271,7 +221,7 @@ function changeFontSize() {
         diagonalText.changeFontSize();
     }
     if (currentMode === 1) {
-        document.querySelector("#spiraledText").setAttributeNS(null, 'font-size', FONT_SIZE);
+        document.querySelector("#spiraledText").setAttributeNS(null, 'font-size', globals.FONT_SIZE);
     }
 }
 
@@ -280,46 +230,46 @@ function changeFontColor() {
         diagonalText.changeFontColor();
     }
     if (currentMode === 1) {
-        document.querySelector("#spiraledText").setAttributeNS(null, 'stroke', FONT_COLOR);
-        document.querySelector("#spiraledText").setAttributeNS(null, 'fill', FONT_COLOR);
+        document.querySelector("#spiraledText").setAttributeNS(null, 'stroke', globals.FONT_COLOR);
+        document.querySelector("#spiraledText").setAttributeNS(null, 'fill', globals.FONT_COLOR);
     }
 }
 
-fontColorInput.addEventListener('input', () => {
-    FONT_COLOR = fontColorInput.value;
+fontColorInput.addEventListener('input', (e) => {
+    globals.setFontColor(e.target.value)
     changeFontColor();
 });
 
-fontSizeSlider.addEventListener('input', () => {
-    fontSizeInput.value = fontSizeSlider.value;
-    FONT_SIZE = fontSizeSlider.value.toString() + "px";
+fontSizeSlider.addEventListener('input', (e) => {
+    fontSizeInput.value = e.target.value;
+    globals.setFontSize(e.target.value.toString() + "px");
     changeFontSize();
 })
-fontSizeInput.addEventListener('input', () => {
-    fontSizeSlider.value = fontSizeInput.value;
-    FONT_SIZE = fontSizeInput.value.toString() + "px";
+fontSizeInput.addEventListener('input', (e) => {
+    fontSizeSlider.value = e.target.value;
+    globals.setFontSize(e.target.value.toString() + "px");
     changeFontSize();
 })
 
-strokeWidthSlider.addEventListener('input', () => {
-    STROKE_WIDTH = strokeWidthSlider.value.toString();
-    strokeWidthInput.value = strokeWidthSlider.value;
+strokeWidthSlider.addEventListener('input', (e) => {
+    globals.setStrokeWidth(e.target.value.toString());
+    strokeWidthInput.value = e.target.value;
     changeStrokeWidth();
 });
 
-strokeWidthInput.addEventListener('input', () => {
-    STROKE_WIDTH = strokeWidthInput.value.toString();
-    strokeWidthSlider.value = strokeWidthInput.value;
+strokeWidthInput.addEventListener('input', (e) => {
+    strokeWidthSlider.value = e.target.value;
+    globals.setStrokeWidth(e.target.value.toString());
     changeStrokeWidth();
 });
 
-fontFamilyInput.addEventListener('input', () => {
-    FONT_FAMILY = fontFamilyInput.value.toString();
+fontFamilyInput.addEventListener('input', (e) => {
+    globals.setFontFamily(e.target.value.toString());
     createSpiral();
 });
 
-fontFamilyURL.addEventListener('input', () => {
-    FONT_URL = fontFamilyURL.value.toString();
+fontFamilyURL.addEventListener('input', (e) => {
+    globals.setFontUrl(e.target.value.toString());
     createSpiral();
 });
 
@@ -327,13 +277,13 @@ snapshotBtn.addEventListener('click', () => {
     snapshot(true);
 });
 
-wordSpacingSlider.addEventListener('input', () => {
-    WORD_SPACING = wordSpacingSlider.value.toString();
+wordSpacingSlider.addEventListener('input', (e) => {
+    globals.setWordSpacing(e.target.value.toString());
     wordSpacingInput.value = wordSpacingSlider.value;
     changeWordSpacing();
 });
-wordSpacingInput.addEventListener('input', () => {
-    WORD_SPACING = wordSpacingInput.value.toString();
+wordSpacingInput.addEventListener('input', (e) => {
+    globals.setWordSpacing(e.target.value.toString());
     wordSpacingSlider.value = wordSpacingInput.value;
     changeWordSpacing();
 });
@@ -343,7 +293,7 @@ function changeWordSpacing() {
         diagonalText.changeWordSpacing();
     }
     if (currentMode === 1) {
-        document.querySelector("#spiraledText").setAttributeNS(null, 'word-spacing', WORD_SPACING);
+        document.querySelector("#spiraledText").setAttributeNS(null, 'word-spacing', globals.WORD_SPACING);
     }
 }
 
@@ -365,6 +315,7 @@ function triggerDownload(dataUri, filename) {
  */
 function snapshot(download = true) {
     let data;
+    let board = document.getElementById("text-base");
 
     // Get SVG element and serialize markup
     const serializedSvg = new XMLSerializer().serializeToString(board);
@@ -380,62 +331,53 @@ function snapshot(download = true) {
 
 function generateRandomBackground() {
     let index = Math.floor(Math.random() * PRESETS.length);
-    // let index = PRESETS.length - 1;
     let preset = PRESETS[index];
 
-    TEXT_VALUE = preset.word;
-    BACKGROUND_COLOR = preset.backgroundColor;
-    FONT_COLOR = preset.fontColor;
+    globals.setTextValue(preset.word);
+    globals.setBackgroundColor(preset.backgroundColor);
+    globals.setFontColor(preset.fontColor);
+    globals.setFontSize(preset.fontSize);
+    globals.setStrokeWidth(preset.strokeWidth);
+    globals.setWordSpacing(preset.wordSpacing);
+
     tmpSpacing = preset.spacing;
     tmpRotation = preset.rotation;
-    FONT_SIZE = preset.fontSize;
-    STROKE_WIDTH = preset.strokeWidth;
-    WORD_SPACING = preset.wordSpacing;
 
-    board.style.backgroundColor = BACKGROUND_COLOR;
+    board.style.backgroundColor = globals.BACKGROUND_COLOR;
 
     //set slider values
-    textInput.value = TEXT_VALUE;
-    backgroundColorInput.value = BACKGROUND_COLOR;
-    fontColorInput.value = FONT_COLOR;
-    // spacingInput.value = SPACING;
-    // rotationInput.value = ROTATION;
-    fontSizeInput.value = FONT_SIZE;
-    strokeWidthInput.value = STROKE_WIDTH;
-    wordSpacingInput.value = WORD_SPACING;
+    textInput.value = globals.TEXT_VALUE;
+    backgroundColorInput.value = globals.BACKGROUND_COLOR;
+    fontColorInput.value = globals.FONT_COLOR;
+    fontSizeInput.value = globals.FONT_SIZE;
+    strokeWidthInput.value = globals.STROKE_WIDTH;
+    wordSpacingInput.value = globals.WORD_SPACING;
 }
 
 function changeCurrentMode(mode) {
     // mode 0 is diagonal text
     // mode 1 is diagonal spiral
-    console.log(mode);
-
     currentMode = mode;
 
-    console.log(diagonalText);
-    // console.log(spiralText);
-
     if (mode === 0) {
-        if (spiralText)
-            spiralText.clearSpiralText();
         if (!diagonalText)
             diagonalText = createDiagonalText(tmpSpacing, tmpRotation);
-        else
+        else {
+            diagonalText.clearDiagonalText();
             diagonalText.drawDiagonalText();
+        }
 
         board = document.getElementById("text-base");
-        // spiralText = document.getElementById("spiraledText");
         container = document.getElementById("container");
     } else if (mode === 1) {
-        if (diagonalText)
-            diagonalText.clearDiagonalText();
         if (!spiralText)
             spiralText = createSpiral();
-        else
+        else {
+            spiralText.clearSpiralText
             spiralText.drawSpiral();
+        }
 
         board = document.getElementById("text-base");
-        // spiralText = document.getElementById("spiraledText");
         container = document.getElementById("container");
     }
 }
