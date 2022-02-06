@@ -21,6 +21,7 @@ export let FONT_URL = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono&d
 export let FONT_SIZE = '50px';
 export let STROKE_WIDTH = '5';
 export let WORD_SPACING = 5;
+export let TEXT_LENGTH = 0;
 
 export let TEXT_VALUE = "SVGENIUS ";
 export let BACKGROUND_COLOR = '#00ffc0';
