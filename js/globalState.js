@@ -4,8 +4,6 @@ import { createDiagonalText, DiagonalText } from './diagonalText';
 import * as globals from './globals';
 
 export let currentMode = 0;
-
-let board = document.getElementById("text-base");
 let container = document.getElementById("container");
 
 let diagonalText = null;
@@ -88,9 +86,10 @@ let PRESETS = [
 ]
 
 function widthHandler() {
+    let board = document.getElementById("text-base");
+
     globals.setWidth(parseInt(widthInput.value));
     globals.setResetNbWords(true);
-
     if (currentMode === 0) {
         diagonalText.redraw();
     }
@@ -103,6 +102,8 @@ function widthHandler() {
 }
 
 function heightHandler() {
+    let board = document.getElementById("text-base");
+
     globals.setHeight(parseInt(heightInput.value));
     globals.setResetNbWords(true);
     if (currentMode === 0) {
@@ -134,6 +135,8 @@ function textHandler() {
 }
 
 function wordNbHandler() {
+    let board = document.getElementById("text-base");
+
     globals.setNbWords(wordNbInput.value);
     if (currentMode === 0) {
         diagonalText.redraw();
@@ -158,8 +161,10 @@ const debounce = (func, timeout = 1000) => {
 }
 
 function changeBackgroundColor() {
-    board.style.backgroundColor = backgroundColorInput.value;
+    let board = document.getElementById("textBg");
+
     globals.setBackgroundColor(backgroundColorInput.value);
+    textBg.style.fill = globals.BACKGROUND_COLOR;
 }
 
 let fontSizeSlider = document.getElementById('fontSizeSlider');
@@ -343,6 +348,7 @@ function snapshot(download = true) {
 };
 
 function generateRandomBackground() {
+    let board = document.getElementById("text-base");
     let index = Math.floor(Math.random() * PRESETS.length);
     let preset = PRESETS[index];
 
@@ -371,6 +377,7 @@ function changeCurrentMode(mode) {
     // mode 0 is diagonal text
     // mode 1 is diagonal spiral
     currentMode = mode;
+    let board = document.getElementById("text-base");
 
     if (mode === 0) {
         if (!diagonalText)

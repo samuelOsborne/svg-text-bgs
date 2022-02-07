@@ -177,7 +177,8 @@ export class Spiral {
 
         let elem = `
         <svg viewBox="0 0 1920 1080" id="text-base" xmlns="http://www.w3.org/2000/svg" style="background-color:#ffffff;">
-            <style type="text/css">
+        <rect width="100%" height="100%" id="textBg"/>
+        <style type="text/css">
             @import url('${globals.FONT_URL}');
             </style>
         
@@ -203,7 +204,7 @@ export class Spiral {
 
         container.innerHTML = elem;
         board = document.getElementById("text-base");
-        board.style.backgroundColor = globals.BACKGROUND_COLOR;
+        board.firstElementChild.style.fill = globals.BACKGROUND_COLOR;
         board.setAttribute('width', globals.WIDTH);
         board.setAttribute('height', globals.HEIGHT);
         let vb = "0 0 " + globals.WIDTH.toString() + " " + globals.HEIGHT.toString();
