@@ -9,6 +9,7 @@ And then customize the font, size, number of words, direction...
 Until you create your masterpiece 🎨
 
 [Homepage](https://textbgs.com) 🏠
+
 [Socials](https://twitter.com/sam_osb) 🦅
 
 ### Features:
