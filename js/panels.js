@@ -4,10 +4,6 @@
 let settingsCloseBtn = document.getElementById('settingsCloseBtn');
 let settingsBtn = document.getElementById('settingsBtn');
 let settingsPanel = document.getElementById('settings');
-let diagonalTextBtn = document.getElementById('diagonalBtn');
-let spiralTextBtn = document.getElementById('spiralBtn');
-let diagonalTextSettingsPanel = document.getElementById('diagonalTextInputs');
-let spiralTextSettingsPanel = document.getElementById('spiralTextInputs');
 
 /**
  * Socials panel
@@ -15,6 +11,19 @@ let spiralTextSettingsPanel = document.getElementById('spiralTextInputs');
 let socialsCloseBtn = document.getElementById('socialsCloseBtn');
 let socialsBtn = document.getElementById('socialsBtn');
 let socialsPanel = document.getElementById('socials');
+
+ 
+ /**
+ * Help panel
+ */
+let helpCloseBtn = document.getElementById('helpCloseBtn');
+let helpBtn = document.getElementById('helpBtn');
+let helpPanel = document.getElementById('helpPanel');
+
+let diagonalTextBtn = document.getElementById('diagonalBtn');
+let spiralTextBtn = document.getElementById('spiralBtn');
+let diagonalTextSettingsPanel = document.getElementById('diagonalTextInputs');
+let spiralTextSettingsPanel = document.getElementById('spiralTextInputs');
 
 /**
  * Settings panel controls
@@ -34,8 +43,56 @@ settingsBtn.addEventListener("click", () => {
     } else {
         settingsPanel.style.display = "block";
         socialsPanel.style.display = "none";
+        helpPanel.style.display = "none";
     }
 });
+
+/**
+ * Socials panel controls
+ */
+ socialsCloseBtn.addEventListener("click", () => {
+    if (socialsPanel.style.display !== 'none') {
+        socialsPanel.style.display = "none";
+    } else {
+        socialsPanel.style.display = "block";
+        settingsPanel.style.display = "none";
+        helpPanel.style.display = "block";
+    }
+});
+
+socialsBtn.addEventListener("click", () => {
+    if (socialsPanel.style.display !== 'none') {
+        socialsPanel.style.display = "none";
+    } else {
+        socialsPanel.style.display = "block";
+        settingsPanel.style.display = "none";
+        helpPanel.style.display = "none";
+    }
+});
+
+/**
+ * Help panel controls
+ */
+ helpCloseBtn.addEventListener("click", () => {
+    if (helpPanel.style.display !== 'none') {
+        helpPanel.style.display = "none";
+    } else {
+        helpPanel.style.display = "block";
+        settingsPanel.style.display = "none";
+        socialsPanel.style.display = "none";
+    }
+});
+
+helpBtn.addEventListener("click", () => {
+    if (helpPanel.style.display !== 'none') {
+        helpPanel.style.display = "none";
+    } else {
+        helpPanel.style.display = "block";
+        settingsPanel.style.display = "none";
+        socialsPanel.style.display = "none";
+    }
+});
+
 
 /**
  * Diagonal / spiral text panel activators
@@ -50,24 +107,3 @@ spiralTextBtn.addEventListener("click", () => {
     spiralTextSettingsPanel.style.display = "block";
 });
 
-
-/**
- * Socials panel controls
- */
-socialsCloseBtn.addEventListener("click", () => {
-    if (socialsPanel.style.display !== 'none') {
-        socialsPanel.style.display = "none";
-    } else {
-        socialsPanel.style.display = "block";
-        settingsPanel.style.display = "none";
-    }
-});
-
-socialsBtn.addEventListener("click", () => {
-    if (socialsPanel.style.display !== 'none') {
-        socialsPanel.style.display = "none";
-    } else {
-        socialsPanel.style.display = "block";
-        settingsPanel.style.display = "none";
-    }
-});

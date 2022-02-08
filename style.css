@@ -4,11 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Reglisse';
-  src:url("/fonts/Reglisse.otf");
-}
-
 :root {
   --rounded-btn: 0;
 }
@@ -34,10 +29,15 @@ body {
   padding-top: 35px;
 }
 
-.reglisse {
-  font-family: 'Reglisse';
-  font-size: 23px;
-  color: deeppink;
+.action-bar {
+  z-index: 9999;
+  position: fixed;
+  bottom: 0;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  /* max-width: 380px; */
 }
 
 .actions {
@@ -55,6 +55,16 @@ body {
   position: absolute;
   bottom: 20px;
   left: 100px;
+  display: flex;
+  flex-direction: column;
+  max-width: 380px;
+}
+
+.help {
+  z-index: 9999;
+  position: absolute;
+  bottom: 20px;
+  left: 180px;
   display: flex;
   flex-direction: column;
   max-width: 380px;

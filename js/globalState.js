@@ -188,12 +188,15 @@ let fontColorInput = document.getElementById('fontColorInput');
  */
 let spiralBtn = document.getElementById('spiralBtn');
 let diagBtn = document.getElementById('diagonalBtn');
+diagBtn.checked = true;
 
 spiralBtn.addEventListener('click', () => {
     changeCurrentMode(1);
+    diagBtn.checked = false;
 });
 diagBtn.addEventListener('click', () => {
     changeCurrentMode(0);
+    spiralBtn.checked = false;
 });
 
 //add spiral button listeners
@@ -371,6 +374,10 @@ function generateRandomBackground() {
     fontSizeInput.value = globals.FONT_SIZE;
     strokeWidthInput.value = globals.STROKE_WIDTH;
     wordSpacingInput.value = globals.WORD_SPACING;
+
+    if (preset.word.includes("Freddie")) {
+        plausible('FREDDIE');
+    }
 }
 
 function changeCurrentMode(mode) {
